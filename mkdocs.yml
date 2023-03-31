@@ -1,4 +1,4 @@
-site_name: NAME
+site_name: geubt-validate
 site_url: URL
 site_description: DESC
 site_author: AUTHOR
@@ -14,21 +14,6 @@ nav:
 
 theme:
   name: material
-  palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: light blue
-      accent: deep orange
-      toggle:
-        icon: material/eye
-        name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate 
-      primary: light blue
-      accent: deep orange
-      toggle:
-        icon: material/eye-outline
-        name: Switch to light mode
   icon:
     repo: fontawesome/brands/github
     favicon: material/dna
@@ -89,6 +74,9 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_css:
+  - stylesheets/extra.css
 
 extra_javascript:
   - javascripts/mathjax.js

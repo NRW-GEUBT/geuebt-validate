@@ -1,12 +1,8 @@
 
-# A Snakekemake repository template
+# Geübt Validate
 
-
-TBD
-
+Data validation module of the Geübt application.
 
 ## Usage 
 
 The documentation for this workflow is hosted on our [homepage](<INSERT URL>).
-
-
