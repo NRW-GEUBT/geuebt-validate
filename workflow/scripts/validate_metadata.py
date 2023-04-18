@@ -5,7 +5,7 @@
 import sys
 
 
-# if not calling for snakemake rule
+# if not calling for snakemake rule 
 try:
     sys.stderr = open(snakemake.log[0], "w")
 except NameError: 

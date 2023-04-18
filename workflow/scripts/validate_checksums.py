@@ -18,12 +18,6 @@ import json
 import pandas as pd
 
 
-# TESTS
-metadata="/home/debian/NGS/NRW-geübt/geuebt-validate/.tests/data/metadata_table_checksum_test.tsv"
-metadata_qc= "/home/debian/NGS/NRW-geübt/geuebt-validate/.tests/data/metadata_status_checksum_test.tsv"
-fasta_dir = "/home/debian/NGS/NRW-geübt/geuebt-validate/.tests/data/fastas" 
-
-
 def md5(fname):
     """
     Return the hex string representation of the md5 difest for a file
