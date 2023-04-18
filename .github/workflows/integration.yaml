@@ -2,10 +2,9 @@ name: CI
 
 on:
   push:
-    branches: 
-      - master
+    branches: [master, main]
   pull_request:
-    branches: [ master ]
+    branches: [master, main]
   workflow_dispatch:
 
 jobs:
@@ -14,7 +13,16 @@ jobs:
     steps:
     
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+    
+    - name: Unit testing
+      run: |
+        pytest .tests/unit
     
     - name: Test workflow
       uses: snakemake/snakemake-github-action@v1.24.0
@@ -24,12 +32,4 @@ jobs:
         args: "-j 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/config/config.yaml"
         stagein: |
             conda config --set channel_priority strict
-    
-    - name: Archive logs on fail
-      if: ${{ failure() }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: foodme-fail-asv
-        path: .tests/logs/
-        if-no-files-found: error
-        retention-days: 3
+

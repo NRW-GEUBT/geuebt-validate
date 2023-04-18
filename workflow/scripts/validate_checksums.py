@@ -5,17 +5,23 @@
 import sys
 
 
-sys.stderr = open(snakemake.log[0], "w")
+# if not calling for snakemake rule
+try:
+    sys.stderr = open(snakemake.log[0], "w")
+except NameError: 
+    pass
 
 
 import os
 import hashlib
+import json
 import pandas as pd
 
 
 # TESTS
-metadata="/home/debian/NGS/NRW-geübt/geuebt-validate/.tests/data/metadata_table_test.tsv"
-metadata_qc= "/home/debian/NGS/NRW-geübt/geuebt-validate/.tests/validation_test/metadata_status.tsv"
+metadata="/home/debian/NGS/NRW-geübt/geuebt-validate/.tests/data/metadata_table_checksum_test.tsv"
+metadata_qc= "/home/debian/NGS/NRW-geübt/geuebt-validate/.tests/data/metadata_status_checksum_test.tsv"
+fasta_dir = "/home/debian/NGS/NRW-geübt/geuebt-validate/.tests/data/fastas" 
 
 
 def md5(fname):
@@ -26,11 +32,11 @@ def md5(fname):
     hash_md5 = hashlib.md5()
     with open(fname, "rb") as f:
         for chunk in iter(lambda: f.read(4096), b""):
-            hash_md5.md5.update(chunk)
+            hash_md5.update(chunk)
     return hash_md5.hexdigest()
 
 
-def validate_fasta(x, fasta_prefix=None)
+def validate_fasta(x, fasta_prefix=None):
     """
     Check wether the file exists, calculate md5 and compare to user value
     """
@@ -42,23 +48,26 @@ def validate_fasta(x, fasta_prefix=None)
             mssg = ''
         else:
             status = 'FAIL'
-            mssg = "f{x['fasta_name']} is corrupted"
+            mssg = f"Fasta file {x['fasta_name']} does not match the specified MD5 hash"
     else:
         md5hex = pd.NA
         status = 'FAIL'
-        mssg = f"{x['fasta_name']} does not exist"
+        mssg = f"Fasta file {x['fasta_name']} does not exist in the specified path"
     return pd.Series([md5hex, status, mssg])
 
 
-def main(metadata, metadata_qc, fasta_dir, json, tsv):
+def main(metadata, metadata_qc, fasta_dir, json_path, tsv_path):
     # Get valid entries as list
-    pass_ids = pd.read_csv(
+    pass_ids = pd.read_json(
         metadata_qc,
-        sep='\t',
+        orient='index',
+    ).reset_index(
+        names='isolate_id'
     )
     pass_ids = pass_ids.loc[
         pass_ids['STATUS'] == 'PASS'
     ]['isolate_id'].to_list()
+
     # Extract fasta paths and md5
     fastas = pd.read_csv(
         metadata,
@@ -66,12 +75,14 @@ def main(metadata, metadata_qc, fasta_dir, json, tsv):
         usecols=['isolate_id', 'fasta_name', 'fasta_md5']
     )
     fastas = fastas.loc[fastas['isolate_id'].isin(pass_ids)]
+
     # Check that file exists and calculate md5
     fastas[['local_md5','STATUS','MESSAGES']] = fastas.apply(
         validate_fasta,
         fasta_prefix=fasta_dir,
         axis=1
     )
+
     # Export tsv
     fastas.to_csv(
         tsv_path,
@@ -79,8 +90,12 @@ def main(metadata, metadata_qc, fasta_dir, json, tsv):
         header=True,
         index=False
     )
+
     # Format and export JSON
-    df_to_dict = set_index('isolate_id').to_json(orient='index')
+    df_to_dict = json.loads(
+            fastas.set_index('isolate_id').to_json(orient='index')
+    )
+    print(df_to_dict)
     with open(json_path, 'w') as f:
         json.dump(df_to_dict, f, indent=4)
 

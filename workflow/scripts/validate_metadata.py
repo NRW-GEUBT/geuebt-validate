@@ -5,7 +5,11 @@
 import sys
 
 
-sys.stderr = open(snakemake.log[0], "w")
+# if not calling for snakemake rule
+try:
+    sys.stderr = open(snakemake.log[0], "w")
+except NameError: 
+    pass
 
 
 import json
@@ -129,6 +133,7 @@ def main(schema, metadata, json_path, tsv_path):
         json_schema, 
         format_checker=FORMAT_CHECKER
     )
+
     # load metadata as dataframe and create json iterator
     metatable = pd.read_csv(
         metadata,
@@ -146,6 +151,7 @@ def main(schema, metadata, json_path, tsv_path):
     records = json.loads(
         metatable.to_json(orient='records')
     )
+
     # Validate each record and register validation errors
     validation_status = {}
     for record in records:
@@ -158,6 +164,7 @@ def main(schema, metadata, json_path, tsv_path):
                 }
             }
         )
+
     # Check for uniqueness where required
     for key in UNIQUE_FIELDS:
         dup = metatable.duplicated(key, keep=False)
@@ -169,9 +176,11 @@ def main(schema, metadata, json_path, tsv_path):
                 validation_status[id]["MESSAGES"].append(
                     f"Duplicated value in field {key}: {val}"
                 )
+
     # Export JSON
     with open(json_path, 'w') as f:
         json.dump(validation_status, f, indent=4)
+
     # Create DF and export to tsv
     dict_to_df = {
         k: [v['STATUS'], ';'.join(v['MESSAGES'])]
@@ -182,6 +191,7 @@ def main(schema, metadata, json_path, tsv_path):
         orient='index', 
         columns=['STATUS', 'MESSAGES']
     ).reset_index(
+        names='isolate_id'
     ).to_csv(
         tsv_path,
         sep='\t',

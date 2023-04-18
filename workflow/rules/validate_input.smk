@@ -18,7 +18,7 @@ rule validate_metadata:
 rule validate_checksum:
     input:
         metadata=config['metadata'],
-        metadata_qc="validation/metadata_status.tsv",
+        metadata_qc="validation/metadata_status.json",
     output:
         json="validation/checksum_status.json",
         tsv="validation/checksum_status.tsv",
