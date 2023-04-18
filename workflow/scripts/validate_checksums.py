@@ -5,10 +5,13 @@
 import sys
 
 
+smk = snakemake
+
+
 # if not calling for snakemake rule
 try:
-    sys.stderr = open(snakemake.log[0], "w")
-except NameError: 
+    sys.stderr = open(smk.log[0], "w")
+except NameError:
     pass
 
 
@@ -71,7 +74,7 @@ def main(metadata, metadata_qc, fasta_dir, json_path, tsv_path):
     fastas = fastas.loc[fastas['isolate_id'].isin(pass_ids)]
 
     # Check that file exists and calculate md5
-    fastas[['local_md5','STATUS','MESSAGES']] = fastas.apply(
+    fastas[['local_md5', 'STATUS', 'MESSAGES']] = fastas.apply(
         validate_fasta,
         fasta_prefix=fasta_dir,
         axis=1
@@ -96,9 +99,9 @@ def main(metadata, metadata_qc, fasta_dir, json_path, tsv_path):
 
 if __name__ == '__main__':
     main(
-        snakemake.input['metadata'],
-        snakemake.input['metadata_qc'],
-        snakemake.params['fasta_dir'],
-        snakemake.output['json'],
-        snakemake.output['tsv']
+        smk.input['metadata'],
+        smk.input['metadata_qc'],
+        smk.params['fasta_dir'],
+        smk.output['json'],
+        smk.output['tsv']
     )
