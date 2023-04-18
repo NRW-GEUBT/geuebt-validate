@@ -5,12 +5,9 @@
 import sys
 
 
-smk = snakemake
-
-
 # if not calling for snakemake rule
 try:
-    sys.stderr = open(smk.log[0], "w")
+    sys.stderr = open(snakemake.log[0], "w")
 except NameError:
     pass
 
@@ -63,7 +60,7 @@ def boolean_converter(x):
     """
     handle boolean datatype in pd.read_csv
 
-    Specifically handle cases where missing values or invalid values 
+    Specifically handle cases where missing values or invalid values
     result in the whole column being unable to convert to boolean dtype
     """
     if x in ['True', 'true', 'TRUE', True]:
@@ -205,8 +202,8 @@ def main(schema, metadata, json_path, tsv_path):
 
 if __name__ == '__main__':
     main(
-        smk.input['schema'],
-        smk.input['metadata'],
-        smk.output['json'],
-        smk.output['tsv']
+        snakemake.input['schema'],
+        snakemake.input['metadata'],
+        snakemake.output['json'],
+        snakemake.output['tsv']
     )

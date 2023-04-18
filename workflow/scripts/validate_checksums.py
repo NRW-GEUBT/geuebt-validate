@@ -5,12 +5,9 @@
 import sys
 
 
-smk = snakemake
-
-
 # if not calling for snakemake rule
 try:
-    sys.stderr = open(smk.log[0], "w")
+    sys.stderr = open(snakemake.log[0], "w")
 except NameError:
     pass
 
@@ -99,9 +96,9 @@ def main(metadata, metadata_qc, fasta_dir, json_path, tsv_path):
 
 if __name__ == '__main__':
     main(
-        smk.input['metadata'],
-        smk.input['metadata_qc'],
-        smk.params['fasta_dir'],
-        smk.output['json'],
-        smk.output['tsv']
+        snakemake.input['metadata'],
+        snakemake.input['metadata_qc'],
+        snakemake.params['fasta_dir'],
+        snakemake.output['json'],
+        snakemake.output['tsv']
     )
