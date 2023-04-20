@@ -1,12 +1,5 @@
-# Fetch minikraken DB
-# Save metadata (Version, date downloaded, URL, etc...)
-
-
-# As per the UNIX File System Hierarchy Standards, databases should be stored 
-# under /var/lib/appname
-
 DB_URL=https://genome-idx.s3.amazonaws.com/kraken/minikraken2_v2_8GB_201904.tgz
-DB_PATH="/var/lib/kraken2/"
+DB_PATH="$HOME/.nrw-geuebt/kraken2"
 FILENAME="minikraken2"
 
 echo "Downloading Kraken2 database to ${DB_PATH} and extracting"

@@ -3,12 +3,12 @@
 
 
 rule validate_metadata:
-    input:
-        schema=f"{workflow.basedir}/workflow/schema/metadata.schema.json",
-        metadata=config['metadata'],
     output:
         json="validation/metadata_status.json",
         tsv="validation/metadata_status.tsv",
+    params:
+        schema=f"{workflow.basedir}/workflow/schema/metadata.schema.json",
+        metadata=config['metadata'],
     message:
         "[Input validation] validating metadata"
     conda:
@@ -21,13 +21,13 @@ rule validate_metadata:
 
 rule validate_checksum:
     input:
-        metadata=config['metadata'],
         metadata_qc="validation/metadata_status.json",
     output:
         json="validation/checksum_status.json",
         tsv="validation/checksum_status.tsv",
     params:
         fasta_dir=config['fasta_dir'],
+        metadata=config['metadata'],
     message:
         "[Input validation] validating md5 checksums"
     conda:

@@ -202,8 +202,8 @@ def main(schema, metadata, json_path, tsv_path):
 
 if __name__ == '__main__':
     main(
-        snakemake.input['schema'],
-        snakemake.input['metadata'],
+        snakemake.params['schema'],
+        snakemake.params['metadata'],
         snakemake.output['json'],
         snakemake.output['tsv']
     )

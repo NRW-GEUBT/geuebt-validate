@@ -95,7 +95,7 @@ def main(metadata, metadata_qc, fasta_dir, json_path, tsv_path):
 
 if __name__ == '__main__':
     main(
-        snakemake.input['metadata'],
+        snakemake.params['metadata'],
         snakemake.input['metadata_qc'],
         snakemake.params['fasta_dir'],
         snakemake.output['json'],

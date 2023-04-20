@@ -11,7 +11,7 @@ min_version("6.3.0")
 shell.executable("bash")
 
 
-configfile: os.path.join(workflow.basedir, "..", ".tests", "config", "config.yaml")
+configfile: os.path.join(workflow.basedir, "..", ".tests", "integration", "config", "config.yaml")
 
 
 # Validating samples in rules/common
@@ -28,8 +28,9 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        
-
+        "validation/metadata_status.json",
+        "validation/checksum_status.json",
+        "assembly_qc/assembly_metrics.json",
 
 # Includes --------------------------------------------------------------------
 

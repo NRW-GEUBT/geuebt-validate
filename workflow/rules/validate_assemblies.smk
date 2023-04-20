@@ -1,22 +1,23 @@
 # Assemblies are defined by checkpoint copy_fasta_to_wdir
+# wildcard : metapass_id
 # check assemblies individually and aggregate results in a JSON
 # then validate qc values
 
 
 rule assembly_qc_quast:
     input:
-        assembly="fastas/{isolate_id}.fa",
+        assembly="fastas/{metapass_id}.fa",
     output:
-        report="assembly_qc/quast/{isolate_id}/report.tsv"
+        report="assembly_qc/quast/{metapass_id}/report.tsv",
     params:
-        outdir="assembly_qc/quast/{isolate_id},
-        min_contig_length=config['min_contig_length']
+        outdir="assembly_qc/quast/{metapass_id}",
+        min_contig_length=config['min_contig_length'],
     message:
-        "[Assembly quality][{wilcards.isolate_id}] Calculating assembly metrics"
+        "[Assembly quality][{wilcards.metapass_id}] Calculating assembly metrics"
     conda:
         "../envs/quast.yaml"
     log:
-        "logs/assembly_qc_quast_{isolate_id}.log"
+        "logs/assembly_qc_quast_{metapass_id}.log"
     threads:
         config['max_threads_per_job']
     shell:
@@ -25,24 +26,25 @@ rule assembly_qc_quast:
         quast -o {params.outdir} \
             --min-contig {params.min_contig_length} \
             --threads {threads} \
+            --no-html \
             {input.assembly}
         """
 
 
 rule assembly_qc_busco:
     input:
-        assembly="fastas/{isolate_id}.fa",
+        assembly="fastas/{metapass_id}.fa",
     output:
-        json="assembly_qc/busco/{isolate_id}/short_summary.{isolate_id}.json"
+        json="assembly_qc/busco/{metapass_id}/short_summary.{metapass_id}.json",
     params:
-        outdir="assembly_qc/busco/{isolate_id},
-        busco_db="/var/lib/busco/bacteria_odb10"
+        outdir="assembly_qc/busco/{metapass_id}",
+        busco_db=config['busco_db'],
     message:
-        "[Assembly quality][{wilcards.isolate_id}] Deteting and counting conserved genes"
+        "[Assembly quality][{wilcards.metapass_id}] Deteting and counting conserved genes"
     conda:
         "../envs/busco.yaml"
     log:
-        "logs/assembly_qc_busco_{isolate_id}.log"
+        "logs/assembly_qc_busco_{metapass_id}.log"
     threads:
         config['max_threads_per_job']
     shell:
@@ -57,18 +59,18 @@ rule assembly_qc_busco:
 
 rule assembly_qc_kraken2:
     input:
-        assembly="fastas/{isolate_id}.fa",
+        assembly="fastas/{metapass_id}.fa",
     output:
-        report="assembly_qc/kraken2/{isolate_id}.kreport",
-        krout="assembly_qc/kraken2/{isolate_id}.kraken",
+        report="assembly_qc/kraken2/{metapass_id}.kreport",
+        krout="assembly_qc/kraken2/{metapass_id}.kraken",
     params:
-        kraken2_db="/var/lib/kraken2/minikraken2",
+        kraken2_db=config['kraken2_db'],
     message:
-        "[Assembly quality][{wilcards.isolate_id}] Taxonomic classification of kmers"
+        "[Assembly quality][{wilcards.metapass_id}] Taxonomic classification of kmers"
     conda:
         "../envs/kraken2.yaml"
     log:
-        "logs/assembly_qc_kraken2_{isolate_id}.log"
+        "logs/assembly_qc_kraken2_{metapass_id}.log"
     threads:
         config['max_threads_per_job']
     shell:
@@ -78,48 +80,65 @@ rule assembly_qc_kraken2:
             --threads {threads} \
             --output {output.krout} \
             --report {output.report} \
+            --confidence 0 
             {input.assembly}
         """
 
 
-rule aggregate_assembly_qc:
+rule process_kraken:
     input:
-        quast=lambda w:aggregate_qcpass(w, "assembly_qc/quast/{isolate_id}/report.tsv")
+        krout="assembly_qc/kraken2/{metapass_id}.kraken",
     output:
-        json="assembly_qc/assembly_metrics.json"
-        tsv="assembly_qc/assembly_metrics.tsv"
+        json="assembly_qc/kraken2/{metapass_id}.kraken.json"
+    params:
+        taxdump="config['taxdump'],
     message:
-        "[Assembly quality] Aggregating assembly metrics"
+        "[Assembly quality][{wilcards.metapass_id}] Calculating taxonomic ditribution of assembly"
+    conda:
+        "../envs/taxidtools.yaml"
     log:
-        "logs/aggregate_assembly_qc.log"
+        "logs/process_kraken.log"
+    script:
+        "../scripts/process_kraken.py"
+
+
+rule mlst:
+    input:
+        assembly="fastas/{metapass_id}.fa",
+    output:
+        json="assembly_qc/mlst/{metapass_id}.mlst.json",
+    message:
+        "[Assembly quality][{wildcards.metapass_id}] MLST scanning and sequence type"
+    conda:
+        "../envs/mlst.yaml"
+    log:
+        "logs/mlst_{metapass_id}.log"
+    shell:
+        """
+        exec 2> {log}
+        mlst -json {output.json} {input.assembly}
+        """
+
+
+rule aggregate_metrics:
+    input:
+        busco="assembly_qc/busco/{metapass_id}/short_summary.{metapass_id}.json",
+        quast="assembly_qc/quast/{metapass_id}/report.tsv",
+        kraken2="",
+        mlst="assembly_qc/mlst/{metapass_id}.mlst.json",
+    output:
+        json="assembly_qc/summaries/{metapass_id}.json"
+    message:
+        "[Assembly quality][{wildcards.metapass_id}] Merging assembly QC metrics"
+    conda:
+        "../envs/pandas.yaml"
+    log:
+        "logs/aggregate_metrics.log"
     run:
-        inport json
-        import pandas as pd
+        
+        # QUAST report is a TSV!
 
 
-        # Read and concat all filesin a df
-        df = pd.concat(
-            (pd.read_csv(f, sep='\t', header=None).T for f in input.quast),
-            ignore_index=True
-        ).rename(columns={"Assembly": "isolate_id"})
-        # Export to tsv
-        df.to_csv(output.tsv, sep='\t', header=True, index=False)
-        # Convert and export to JSON
-        df_to_dict = json.loads(
-            df.set_index('isolate_id').to_json(orient='index')
-        )
-        with open(output.json, 'w') as f:
-            json.dump(df_to_dict, f, indent=4)
+# rule validate_assembly_qc:
+    # Compare merge Json to schema and report deviations
 
-
-rule aggregate_kraken:
-    # Aggregate rule for kraken output
-    # Get cumlength of contigs per species/genus 
-    # uses taxidTools
-
-
-
-
-
-
-rule validate_assembly_qc:

@@ -1,0 +1,31 @@
+# Configuration file template
+# Modify the values below as deemed nescessary
+# See the documentation for more informations
+# ------------------------------------------------------------------------------
+
+# Input and Output paths
+# ----------------------
+
+# Path to the output directory, will be created if it doesn´t exist
+workdir: results
+# Path to the metadata table
+metadata: data/metadata.tsv
+# Path to the directory containing fasta files
+fasta_dir: data/fastas
+
+# Max number of threads assigned to single jobs
+max_threads_per_job: 1
+
+
+# Databases
+# ---------
+
+kraken2_db: ~/.nrw-geuebt/kraken2/minikraken2
+busco_db: ~/.nrw-geuebt/busco/bacteria_odb10
+
+
+# Additional parameters
+# ---------------------
+
+# Minimum contig length for calculating assembly metrics
+min_contig_length: 500

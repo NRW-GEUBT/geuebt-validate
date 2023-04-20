@@ -12,11 +12,17 @@ workdir: /path/to/workdir
 metadata: /path/to/metadata
 # Path to the directory containing fasta files
 fasta_dir: /path/to/dir
-# Path to the kraken DB
-kraken2_db: /path/to/db
 
 # Max number of threads assigned to single jobs
 max_threads_per_job: 1
+
+
+# Databases
+# ---------
+
+kraken2_db: ~/.nrw-geuebt/kraken2/minikraken2
+busco_db: ~/.nrw-geuebt/busco/bacteria_odb10
+taxdump: ~/.nrw-geuebt/taxdump/
 
 # Additional parameters
 # ---------------------

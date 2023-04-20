@@ -18,10 +18,10 @@ def get_local_time():
 
 
 # Input functions ------------------------------------
-def aggregate_qcpass(wildcards, pattern):
+def aggregate_metapass(wildcards, pattern):
     checkpoint_output = checkpoints.copy_fasta_to_wdir.get(**wildcards).output[0]
     ids_map = glob_wildcards(
         os.path.join(
-            checkpoint_output, "{isolate_id}.fa"
-        )).isolate_id
-    return expand(pattern, isolate_id=ids_map)
+            checkpoint_output, "{metapass_id}.fa"
+        )).metapass_id
+    return expand(pattern, metapass_id=ids_map)
