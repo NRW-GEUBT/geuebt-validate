@@ -89,7 +89,6 @@ def main(metadata, metadata_qc, fasta_dir, json_path, tsv_path):
     df_to_dict = json.loads(
             fastas.set_index('isolate_id').to_json(orient='index')
     )
-    print(df_to_dict)
     with open(json_path, 'w') as f:
         json.dump(df_to_dict, f, indent=4)
 
