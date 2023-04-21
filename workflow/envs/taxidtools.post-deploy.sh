@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+set -Eeu
+
+
 DB_URL=https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz
 DB_PATH="$HOME/.nrw-geuebt/taxdump"
 FILENAME="taxdump"
@@ -18,6 +22,5 @@ fi
 [[ -n $download_hash ]] && echo "$download_hash" > $FILENAME.sha256
 date --iso-8601='minutes' >> $FILENAME.timestamp
 echo $DB_URL > $FILENAME.source
-[[ "$download_success" == 1 ]] && tar -xzv -f $FILENAME -C ${DB_PATH}
-
+[[ "$download_success" == 1 ]] && tar -xzvf $FILENAME.tar.gz && rm $FILENAME.tar.gz
 echo "Downlaod complete"

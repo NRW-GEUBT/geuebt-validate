@@ -7,7 +7,7 @@
 # ----------------------
 
 # Path to the output directory, will be created if it doesn´t exist
-workdir: results
+workdir: ./.tests/integration
 # Path to the metadata table
 metadata: data/metadata.tsv
 # Path to the directory containing fasta files
@@ -22,7 +22,7 @@ max_threads_per_job: 1
 
 kraken2_db: ~/.nrw-geuebt/kraken2/minikraken2
 busco_db: ~/.nrw-geuebt/busco/bacteria_odb10
-
+taxdump: ~/.nrw-geuebt/taxdump
 
 # Additional parameters
 # ---------------------

@@ -1,0 +1,7 @@
+# tax id | parent
+1 | 1 | root
+1637 | 1 | Listeria
+1639 | 1637 | Listeria monocytogenes
+882095 | 1639 | Listeria monocytogenes ATCC 19117
+1351 | 1350 | species
+1350 | 1 | genus

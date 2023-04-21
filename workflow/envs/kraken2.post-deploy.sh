@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+set -Eeu
+
+
 DB_URL=https://genome-idx.s3.amazonaws.com/kraken/minikraken2_v2_8GB_201904.tgz
 DB_PATH="$HOME/.nrw-geuebt/kraken2"
 FILENAME="minikraken2"
@@ -18,6 +22,6 @@ fi
 [[ -n $download_hash ]] && echo "$download_hash" > $FILENAME.sha256
 date --iso-8601='minutes' >> $FILENAME.timestamp
 echo $DB_URL > $FILENAME.source
-[[ "$download_success" == 1 ]] && tar -xzv -f $FILENAME -C ${DB_PATH}
+[[ "$download_success" == 1 ]] && tar -xzv -f $FILENAME.tar.gz && rm $FILENAME.tar.gz
 
 echo "Downlaod complete"

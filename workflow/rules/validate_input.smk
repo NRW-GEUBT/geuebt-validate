@@ -7,7 +7,7 @@ rule validate_metadata:
         json="validation/metadata_status.json",
         tsv="validation/metadata_status.tsv",
     params:
-        schema=f"{workflow.basedir}/workflow/schema/metadata.schema.json",
+        schema=f"{workflow.basedir}/schema/metadata.schema.json",
         metadata=config['metadata'],
     message:
         "[Input validation] validating metadata"
@@ -42,7 +42,7 @@ checkpoint copy_fasta_to_wdir:
     input:
         qc_pass="validation/checksum_status.json",
     output:
-        dir=directory("fastas"),
+        dir=directory("fastas/"),
     params:
         fasta_dir=config['fasta_dir'],
     message:
@@ -52,16 +52,18 @@ checkpoint copy_fasta_to_wdir:
     run:
         import os
         import json
-        import shutils
+        import shutil
 
 
         # load json
         with open(input.qc_pass, 'r') as f:
             qcp = json.load(f)
+        # make output dir
+        os.makedirs(output.dir, exist_ok=True)
         # Copy all selected fastas locally
         for k, v in qcp.items():
             if v['STATUS'] == 'PASS':
-                shutils.copy(
+                shutil.copy(
                     os.path.join(params.fasta_dir, v['fasta_name']),
                     os.path.join(output.dir, f"{k}.fa")
                 )

@@ -30,7 +30,7 @@ rule all:
     input:
         "validation/metadata_status.json",
         "validation/checksum_status.json",
-        "assembly_qc/assembly_metrics.json",
+        "assembly_qc/assembly_metrics.json"
 
 # Includes --------------------------------------------------------------------
 

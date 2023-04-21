@@ -1,5 +1,9 @@
+#!/usr/bin/env bash
+set -Eeu
+
+
 DB_URL=https://busco-data.ezlab.org/v5/data/lineages/bacteria_odb10.2020-03-06.tar.gz
-DB_PATH="$HOME/.nrw-geuebt/busco"
+DB_PATH="$HOME/.nrw-geuebt/busco/"
 FILENAME="bacteria_odb10"
 
 echo "Downloading BUSCO database to ${DB_PATH} and extracting"
@@ -18,6 +22,6 @@ fi
 [[ -n $download_hash ]] && echo "$download_hash" > $FILENAME.sha256
 date --iso-8601='minutes' >> $FILENAME.timestamp
 echo $DB_URL > $FILENAME.source
-[[ "$download_success" == 1 ]] && tar -xzv -f $FILENAME -C ${DB_PATH}
+[[ "$download_success" == 1 ]] && tar -xzv -f $FILENAME.tar.gz && rm $FILENAME.tar.gz
 
 echo "Downlaod complete"

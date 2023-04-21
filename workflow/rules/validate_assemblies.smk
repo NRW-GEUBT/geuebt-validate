@@ -89,15 +89,15 @@ rule process_kraken:
     input:
         krout="assembly_qc/kraken2/{metapass_id}.kraken",
     output:
-        json="assembly_qc/kraken2/{metapass_id}.kraken.json"
+        json="assembly_qc/kraken2/{metapass_id}.kraken.json",
     params:
-        taxdump="config['taxdump'],
+        taxdump=config['taxdump'],
     message:
         "[Assembly quality][{wilcards.metapass_id}] Calculating taxonomic ditribution of assembly"
     conda:
         "../envs/taxidtools.yaml"
     log:
-        "logs/process_kraken.log"
+        "logs/process_kraken_{metapass_id}.log"
     script:
         "../scripts/process_kraken.py"
 
@@ -120,11 +120,11 @@ rule mlst:
         """
 
 
-rule aggregate_metrics:
+rule merge_metrics:
     input:
         busco="assembly_qc/busco/{metapass_id}/short_summary.{metapass_id}.json",
         quast="assembly_qc/quast/{metapass_id}/report.tsv",
-        kraken2="",
+        kraken2="assembly_qc/kraken2/{metapass_id}.kraken.json",
         mlst="assembly_qc/mlst/{metapass_id}.mlst.json",
     output:
         json="assembly_qc/summaries/{metapass_id}.json"
@@ -133,10 +133,23 @@ rule aggregate_metrics:
     conda:
         "../envs/pandas.yaml"
     log:
-        "logs/aggregate_metrics.log"
-    run:
-        
+        "logs/merge_metrics_{metapass_id}.log"
+    shell:
+        """
+        touch {output.json}
+        """
         # QUAST report is a TSV!
+
+
+rule aggregate_metrics:
+    input:
+        metrics=aggregate_metapass,
+    output:
+        metrics="assembly_qc/assembly_metrics.json",
+    shell:
+        """
+        touch {output.metrics}
+        """
 
 
 # rule validate_assembly_qc:
