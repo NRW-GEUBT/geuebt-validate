@@ -29,7 +29,7 @@ def test_process_kraken():
         from process_kraken import main
         main(
             kraken=os.path.join(workdir, 'report.kraken'), 
-            taxdump=os.path.join(workdir), 
+            taxdump=os.path.join(workdir, "taxdump"), 
             json_path=os.path.join(workdir, 'result.json'), 
         )
 

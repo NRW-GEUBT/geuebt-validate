@@ -41,7 +41,7 @@ def rank_prop(df, rank, n=2):
         ),
         axis=1
     ).sort_values(
-        'proportion', 
+        'proportion',
         ascending=False
     ).head(n)
 
@@ -66,7 +66,7 @@ def main(kraken, taxdump, json_path):
         ]
     )
     krak[['species', 'genus']] = krak.apply(
-        lambda x: get_ancestry(x, tax), 
+        lambda x: get_ancestry(x, tax),
         result_type='expand',
         axis=1)
     # Get predicted genus (majority taxid at genus level)
@@ -91,4 +91,3 @@ if __name__ == '__main__':
         snakemake.params['taxdump'],
         snakemake.output['json']
     )
-
