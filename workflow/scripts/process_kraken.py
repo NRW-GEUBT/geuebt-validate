@@ -15,6 +15,7 @@ except NameError:
     pass
 
 
+import os
 import json
 import pandas as pd
 import taxidTools as txd
