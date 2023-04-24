@@ -23,7 +23,7 @@ import taxidTools as txd
 
 def get_ancestry(x, tax, ranks=['species', 'genus']):
     try:
-        lin = tax.getAncestry(x['len'])
+        lin = tax.getAncestry(x['taxid'])
         lin.filter(ranks)
         return [n.name for n in lin]
     except KeyError:
@@ -31,19 +31,16 @@ def get_ancestry(x, tax, ranks=['species', 'genus']):
 
 
 def rank_prop(df, rank, n=2):
-    cumsum = df.loc[['len', rank]].groupby(
+    cumsum = df[['len', rank]].groupby(
         rank
-    ).sum()
+    ).sum().reset_index()
     total_length = sum(cumsum['len'])
-    return cumsum.apply(
-        lambda x: pd.Series(
-            [rank, x[rank], x['len']/total_length],
-            index=['rank', 'name', 'proportion']
-        ),
-        axis=1
+    cumsum['proportion'] = cumsum['len']/total_length
+    cumsum['rank'] = rank
+    return cumsum.rename(
+        columns={rank: 'name'}
     ).sort_values(
-        'proportion',
-        ascending=False
+        'proportion', ascending =False
     ).head(n)
 
 
@@ -58,11 +55,12 @@ def main(kraken, taxdump, json_path):
         kraken,
         sep='\t',
         header=None,
+        index_col=False,
         names=[
             'flag',
             'id',
             'taxid',
-            'len'
+            'len',
             'lca'
         ]
     )
@@ -71,16 +69,19 @@ def main(kraken, taxdump, json_path):
         result_type='expand',
         axis=1)
     # Get predicted genus (majority taxid at genus level)
-    pred_genus = rank_prop(
-        krak, 'genus', 1
-    ).loc['genus']
-    # Get fraction majority species
-    frac_maj_spec = rank_prop(
+    krak = krak[['len', 'species', 'genus']]
+    species = rank_prop(
         krak, 'species', 1
-    ).loc['proportion']
+    )
+    pred_species = species['name'].values[0]
+    # Get fraction majority species
+    genus = rank_prop(
+        krak, 'genus', 1
+    )
+    frac_maj_genus = genus['proportion'].values[0]
     d = {
-        'predicted_genus': pred_genus,
-        'fraction_majority_species': frac_maj_spec
+        'predicted_species': pred_species,
+        'fraction_majority_genus': frac_maj_genus
     }
     with open(json_path, 'w') as f:
         json.dump(d, f, indent=4)

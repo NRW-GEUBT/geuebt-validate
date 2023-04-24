@@ -1,26 +1,38 @@
 #!/usr/bin/env bash
 set -Eeu
 
+# URL of the .tar archive
+url="https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz"
 
-DB_URL=https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz
-DB_PATH="$HOME/.nrw-geuebt/taxdump"
-FILENAME="taxdump"
+# Local directory to save the file
+local_dir="$HOME/.nrw-geuebt/taxdump"
 
-echo "Downloading taxdump database to ${DB_PATH} and extracting"
+# Name of the downloaded file
+file_name="taxdump"
 
-# Create Subdirectories
-mkdir -p ${DB_PATH}
-cd ${DB_PATH}
-# Download
-target="$FILENAME.tar.gz"
-if [[ -f $target ]]; then
-  echo "The file $target already exists. Skipping download."
+# Remote file (includes .tar.gz extension)
+remote_name=$(basename "$url")
+
+# Create local directory if it doesn't exist
+mkdir -p "$local_dir"
+
+# Check if the file or directory already exists locally
+if [[ -e "$local_dir/$file_name" ]]; then
+
+  echo "The file already exists, skipping download"
+
 else
-  wget --output-document $target $DB_URL
-  [[ $? -eq 0 ]] && [[ -s $target ]] && download_hash=$(openssl dgst -r -sha256 $target) && download_success=1
+
+  # Download the file and save it to the local directory
+  echo "Downloading file..."
+  curl -L -o "$local_dir/$remote_name" "$url"
+
+  # Calculate the hash of the downloaded file
+  download_hash=$(openssl dgst -r -sha256 "$local_dir/$remote_name")
+  
+  echo "$download_hash" > "$local_dir/$file_name.sha256"
+  date --iso-8601='minutes' >> "$local_dir/$file_name.timestamp"
+  echo "$url" > "$local_dir/$file_name.source"
+  tar -xzvf "$local_dir/$remote_name" -C "$local_dir/" && rm "$local_dir/$remote_name"
+
 fi
-[[ -n $download_hash ]] && echo "$download_hash" > $FILENAME.sha256
-date --iso-8601='minutes' >> $FILENAME.timestamp
-echo $DB_URL > $FILENAME.source
-[[ "$download_success" == 1 ]] && tar -xzvf $FILENAME.tar.gz && rm $FILENAME.tar.gz
-echo "Downlaod complete"
