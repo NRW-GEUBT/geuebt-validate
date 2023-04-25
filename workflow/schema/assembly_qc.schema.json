@@ -5,19 +5,20 @@
         "isolate_id",
         "expect_species"
     ],
-    ,
     "properties": {
         "isolate_id": {
             "type": "string",
+            "pattern": "^(19[9-9][0-9]|2[0-1][0-4][0-9]|2150)-[0-9]{7}(-[0-9]{2})?$"
         },
         "expect_species":{
             "type": "string",
+            "enum": ["Listeria monocytogenes", "Salmonella enterica", "Campylobacter spp.", "Escherichia coli"]
         }
     },
     "allOf": [
         {
             "if": {
-                "properties": { "organism": { "const": "Listeria monocytogenes" } },
+                "properties": { "expect_species": { "const": "Listeria monocytogenes" } },
                 "required": ["expect_species"]
             },
             "then": {
@@ -25,8 +26,8 @@
                     "n_contigs_1kbp": { "maximum": 300 },
                     "assembly_size": { "minimum": 2700000 , "maximum": 3200000},
                     "GC_perc": { "minimum": 33.9 , "maximum": 41.9},
-                    "orthologs_found": { "minimum": 0.95 },
-                    "duplicated_orthologs": { "maximum": 0.05 },
+                    "orthologs_found": { "minimum": 95 },
+                    "duplicated_orthologs": { "maximum": 5 },
                     "fraction_majority_genus": { "minimum": 0.95 },
                     "majority_genus": { "const": "Listeria" }
                 },
@@ -43,7 +44,7 @@
         },
         {
             "if": {
-                "properties": { "organism": { "const": "Salmonella enterica" } },
+                "properties": { "expect_species": { "const": "Salmonella enterica" } },
                 "required": ["expect_species"]
             },
             "then": {
@@ -51,8 +52,8 @@
                     "n_contigs_1kbp": { "maximum": 300 },
                     "assembly_size": { "minimum": 4300000 , "maximum": 5200000},
                     "GC_perc": { "minimum": 48.1 , "maximum": 56.1},
-                    "orthologs_found": { "minimum": 0.95 },
-                    "duplicated_orthologs": { "maximum": 0.05 },
+                    "orthologs_found": { "minimum": 95 },
+                    "duplicated_orthologs": { "maximum": 5 },
                     "fraction_majority_genus": { "minimum": 0.95 },
                     "majority_genus": { "const": "Salmonella" }
                 },
@@ -69,7 +70,7 @@
         },
         {
             "if": {
-                "properties": { "organism": { "const": "Campylobacter spp." } },
+                "properties": { "expect_species": { "const": "Campylobacter spp." } },
                 "required": ["expect_species"]
             },
             "then": {
@@ -77,8 +78,8 @@
                     "n_contigs_1kbp": { "maximum": 300 },
                     "assembly_size": { "minimum": 1500000 , "maximum": 1900000},
                     "GC_perc": { "minimum": 26.4 , "maximum": 35.3},
-                    "orthologs_found": { "minimum": 0.8 },
-                    "duplicated_orthologs": { "maximum": 0.05 },
+                    "orthologs_found": { "minimum": 80 },
+                    "duplicated_orthologs": { "maximum": 5 },
                     "fraction_majority_genus": { "minimum": 0.90 },
                     "majority_genus": { "const": "Campylobacter" }
                 },
@@ -95,7 +96,7 @@
         },
         {
             "if": {
-                "properties": { "organism": { "const": "Escherichia coli" } },
+                "properties": { "expect_species": { "const": "Escherichia coli" } },
                 "required": ["expect_species"]
             },
             "then": {
@@ -103,10 +104,10 @@
                     "n_contigs_1kbp": { "maximum": 500 },
                     "assembly_size": { "minimum": 4500000 , "maximum": 5900000},
                     "GC_perc": { "minimum": 46.6 , "maximum": 54.6},
-                    "orthologs_found": { "minimum": 0.95 },
-                    "duplicated_orthologs": { "maximum": 0.05 },
+                    "orthologs_found": { "minimum": 95 },
+                    "duplicated_orthologs": { "maximum": 5 },
                     "fraction_majority_genus": { "minimum": 0.90 },
-                    "majority_genus": { "enum": ["Escherichia coli", "Shigella"] }
+                    "majority_genus": { "enum": ["Escherichia", "Shigella"] }
                 },
                 "required": [
                     "n_contigs_1kbp",

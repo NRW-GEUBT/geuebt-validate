@@ -205,6 +205,20 @@ rule aggregate_metrics:
             json.dump(merged, f, indent=4)
 
 
-# rule validate_assembly_qc:
-    # Compare merge Json to schema and report deviations
+rule validate_assembly_qc:
+    input:
+        metrics="assembly_qc/assembly_metrics.json",
+    output:
+        json="validation/assemblies_status.json",
+        tsv="validation/assemblies_status.tsv",
+    params:
+        schema=f"{workflow.basedir}/schema/assembly_qc.schema.json",
+    message:
+        "[Assembly quality] Validating assemblies quality"
+    conda:
+        "../envs/pandas.yaml"
+    log:
+        "logs/validate_assembly_qc.log"
+    script:
+        "../scripts/validate_assemblies.py"
 

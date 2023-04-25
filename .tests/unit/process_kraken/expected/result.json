@@ -1,4 +1,6 @@
 {
     "predicted_species": "Listeria monocytogenes",
+    "fraction_majority_species": 0.975,
+    "predicted_genus": "Listeria",
     "fraction_majority_genus": 0.975
 }

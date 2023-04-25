@@ -33,7 +33,8 @@ def test_validate_metadata():
             schema=os.path.join(workdir, 'metadata.schema.json'), 
             metadata=os.path.join(workdir, 'metadata_table_test.tsv'), 
             json_path=os.path.join(workdir, 'result.json'), 
-            tsv_path=os.path.join(workdir, 'result.tsv')
+            tsv_path=os.path.join(workdir, 'result.tsv'),
+            metadata_json=os.path.join(workdir, 'metadata.json')
         )
 
         # Compare resulting jsons as dict

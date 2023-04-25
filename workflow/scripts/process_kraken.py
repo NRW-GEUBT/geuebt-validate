@@ -85,7 +85,7 @@ def main(kraken, taxdump, json_path):
     frac_maj_genus = genus['proportion'].values[0]
     d = {
         'predicted_species': pred_species,
-        'fraction_majority_species': frac_maj_species
+        'fraction_majority_species': frac_maj_species,
         'predicted_genus': pred_genus,
         'fraction_majority_genus': frac_maj_genus
     }

@@ -1,0 +1,76 @@
+{
+    "2022-0232977-01": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0232977-02": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field n_contigs_1kbp. Expected maximum: 300, got 301"
+        ]
+    },
+    "2022-0232977-03": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field assembly_size. Expected minimum: 4300000, got 4200000"
+        ]
+    },
+    "2022-0232977-04": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field assembly_size. Expected maximum: 5200000, got 5300000"
+        ]
+    },
+    "2022-0232977-05": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field GC_perc. Expected minimum: 48.1, got 48"
+        ]
+    },
+    "2022-0232977-06": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field GC_perc. Expected maximum: 56.1, got 57"
+        ]
+    },
+    "2022-0232977-07": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field orthologs_found. Expected minimum: 95, got 90"
+        ]
+    },
+    "2022-0232977-08": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field duplicated_orthologs. Expected maximum: 5, got 15.2"
+        ]
+    },
+    "2022-0232977-09": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field majority_genus. Expected const: Salmonella, got Listeria"
+        ]
+    },
+    "2022-0232977-10": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field fraction_majority_genus. Expected minimum: 0.95, got 0.92"
+        ]
+    },
+    "2022-0232978-01": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0232979-01": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0232980-01": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0232980-02": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    }
+}
