@@ -46,6 +46,7 @@ def rank_prop(df, rank, n=2):
 
 def main(kraken, taxdump, json_path):
     # Load taxonomy
+    taxdump = os.path.expanduser(taxdump)
     tax = txd.Taxonomy.from_taxdump(
         os.path.join(taxdump, "nodes.dmp"),
         os.path.join(taxdump, "rankedlineage.dmp")
@@ -68,19 +69,24 @@ def main(kraken, taxdump, json_path):
         lambda x: get_ancestry(x, tax),
         result_type='expand',
         axis=1)
-    # Get predicted genus (majority taxid at genus level)
+    # Get genus and species
     krak = krak[['len', 'species', 'genus']]
+    # Species level
     species = rank_prop(
         krak, 'species', 1
     )
     pred_species = species['name'].values[0]
-    # Get fraction majority species
+    frac_maj_species = species['proportion'].values[0]
+    # Genus level
     genus = rank_prop(
         krak, 'genus', 1
     )
+    pred_genus = genus['name'].values[0]
     frac_maj_genus = genus['proportion'].values[0]
     d = {
         'predicted_species': pred_species,
+        'fraction_majority_species': frac_maj_species
+        'predicted_genus': pred_genus,
         'fraction_majority_genus': frac_maj_genus
     }
     with open(json_path, 'w') as f:

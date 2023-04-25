@@ -124,7 +124,7 @@ def validate_record(record, validator):
     return status, messages
 
 
-def main(schema, metadata, json_path, tsv_path):
+def main(schema, metadata, json_path, tsv_path, metadata_json):
     # load schema as a json object and validate
     with open(schema, 'r') as f:
         json_schema = json.load(f)
@@ -153,17 +153,25 @@ def main(schema, metadata, json_path, tsv_path):
     )
 
     # Validate each record and register validation errors
+    valid_records = {}
     validation_status = {}
     for record in records:
         status, errors = validate_record(record, validator)
         validation_status.update(
             {
-                record["isolate_id"]: {
+                record['isolate_id']: {
                     "STATUS": status,
                     "MESSAGES": errors
                 }
             }
         )
+        # save valid records
+        if status == 'PASS':
+            valid_records[record['isolate_id']] = record
+
+    # export valid metadata to Json file
+    with open(metadata_json, 'w') as f:
+        json.dump(valid_records, f, indent=4)
 
     # Check for uniqueness where required
     for key in UNIQUE_FIELDS:
@@ -205,5 +213,6 @@ if __name__ == '__main__':
         snakemake.params['schema'],
         snakemake.params['metadata'],
         snakemake.output['json'],
-        snakemake.output['tsv']
+        snakemake.output['tsv'],
+        snakemake.output['metadata_json']
     )

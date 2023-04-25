@@ -6,6 +6,7 @@ rule validate_metadata:
     output:
         json="validation/metadata_status.json",
         tsv="validation/metadata_status.tsv",
+        metadata_json="validation/metadata.json",
     params:
         schema=f"{workflow.basedir}/schema/metadata.schema.json",
         metadata=config['metadata'],
@@ -50,10 +51,11 @@ checkpoint copy_fasta_to_wdir:
     log:
         "logs/copy_fasta_to_wdir.log"
     run:
-        import os
+        import os, sys
         import json
         import shutil
 
+        sys.stderr = open(log[0], "w")
 
         # load json
         with open(input.qc_pass, 'r') as f:

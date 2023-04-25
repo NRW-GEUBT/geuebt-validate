@@ -2,13 +2,13 @@
 set -Eeu
 
 # URL of the .tar archive
-url="https://genome-idx.s3.amazonaws.com/kraken/minikraken2_v2_8GB_201904.tgz"
+url="https://genome-idx.s3.amazonaws.com/kraken/k2_standard_08gb_20230314.tar.gz"
 
 # Local directory to save the file
 local_dir="$HOME/.nrw-geuebt/kraken2"
 
 # Name of the downloaded file
-file_name="minikraken2"
+file_name="kraken2_standard8"
 
 # Remote file (includes .tar.gz extension)
 remote_name=$(basename "$url")
@@ -31,8 +31,10 @@ else
   download_hash=$(openssl dgst -r -sha256 "$local_dir/$remote_name")
   
   echo "$download_hash" > "$local_dir/$file_name.sha256"
-  date --iso-8601='minutes' >> "$local_dir/$file_name.timestamp"
+  date --iso-8601='minutes' > "$local_dir/$file_name.timestamp"
   echo "$url" > "$local_dir/$file_name.source"
-  tar -xzvf "$local_dir/$remote_name" -C "$local_dir/" && rm "$local_dir/$remote_name"
+  # No directory in archive for kraken!
+  mkdir -p "$local_dir/$file_name"
+  tar -xzvf "$local_dir/$remote_name" -C "$local_dir/$file_name" && rm "$local_dir/$remote_name"
 
 fi

@@ -18,6 +18,11 @@ def get_local_time():
 
 
 # Input functions ------------------------------------
+def get_busco_out_name(wildcards):
+    buscodb = os.path.basename(config['busco_db'])
+    return f"assembly_qc/busco/{wildcards.metapass_id}/run_{buscodb}/short_summary.json"
+
+
 def aggregate_metapass(wildcards):
     checkpoint_output = checkpoints.copy_fasta_to_wdir.get(**wildcards).output[0]
     ids_map = glob_wildcards(
