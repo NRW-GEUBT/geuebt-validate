@@ -41,8 +41,8 @@ include: "rules/validate_assemblies.smk"
 
 
 # Workflow --------------------------------------------------------------------
-
 ## send notifications with onsuccess and onerror
+
 
 onstart:
     print(f"\nYou are using GEUEBT-VALIDATE version: {version}")

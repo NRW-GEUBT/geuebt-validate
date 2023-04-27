@@ -40,7 +40,7 @@ def rank_prop(df, rank, n=2):
     return cumsum.rename(
         columns={rank: 'name'}
     ).sort_values(
-        'proportion', ascending =False
+        'proportion', ascending=False
     ).head(n)
 
 

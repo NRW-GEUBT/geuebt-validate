@@ -28,15 +28,19 @@ def test_validate_checksums():
         sys.path.insert(0, workdir)
         from validate_checksums import main
         main(
-            metadata=os.path.join(workdir, 'metadata_table_test.tsv'), 
-            metadata_qc=os.path.join(workdir, 'metadata_status.json'), 
-            fasta_dir=os.path.join(workdir, 'fastas'), 
-            json_path=os.path.join(workdir, 'result.json'), 
+            metadata=os.path.join(workdir, 'metadata_table_test.tsv'),
+            metadata_qc=os.path.join(workdir, 'metadata_status.json'),
+            fasta_dir=os.path.join(workdir, 'fastas'),
+            json_path=os.path.join(workdir, 'result.json'),
             tsv_path=os.path.join(workdir, 'result.tsv')
         )
 
         # Compare resulting jsons as dict
-        with open(os.path.join(workdir, 'result.json'), 'r') as res, open(os.path.join(expected_path, 'fasta_checksums.json'), 'r') as expect:
+        with open(
+            os.path.join(workdir, 'result.json'), 'r'
+        ) as res, open(
+            os.path.join(expected_path, 'fasta_checksums.json'), 'r'
+        ) as expect:
             res_dict = load(res)
             exp_dict = load(expect)
             assert res_dict == exp_dict

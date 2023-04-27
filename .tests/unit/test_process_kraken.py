@@ -28,13 +28,17 @@ def test_process_kraken():
         sys.path.insert(0, workdir)
         from process_kraken import main
         main(
-            kraken=os.path.join(workdir, 'report.kraken'), 
-            taxdump=os.path.join(workdir, "taxdump"), 
-            json_path=os.path.join(workdir, 'result.json'), 
+            kraken=os.path.join(workdir, 'report.kraken'),
+            taxdump=os.path.join(workdir, "taxdump"),
+            json_path=os.path.join(workdir, 'result.json'),
         )
 
         # Compare resulting jsons as dict
-        with open(os.path.join(workdir, 'result.json'), 'r') as res, open(os.path.join(expected_path, 'result.json'), 'r') as expect:
+        with open(
+            os.path.join(workdir, 'result.json'), 'r'
+        ) as res, open(
+            os.path.join(expected_path, 'result.json'), 'r'
+        ) as expect:
             res_dict = load(res)
             exp_dict = load(expect)
             assert res_dict == exp_dict

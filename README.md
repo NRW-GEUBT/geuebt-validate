@@ -3,6 +3,6 @@
 
 Data validation module of the Geübt application.
 
-## Usage 
+## Usage
 
 The documentation for this workflow is hosted on our [homepage](<INSERT URL>).

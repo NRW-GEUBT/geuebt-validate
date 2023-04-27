@@ -14,7 +14,6 @@ except NameError:
 
 import json
 import jsonschema
-import numpy as np
 import pandas as pd
 
 
@@ -87,7 +86,7 @@ def main(schema, metrics, json_path, tsv_path):
         )
         # save valid records
         # if status == 'PASS':
-            # valid_records[record['isolate_id']] = record
+        # valid_records[record['isolate_id']] = record
 
     # export valid metadata to Json file
     # with open(metadata_json, 'w') as f:

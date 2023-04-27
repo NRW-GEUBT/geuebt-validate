@@ -30,15 +30,19 @@ def test_validate_metadata():
         sys.path.insert(0, workdir)
         from validate_assemblies import main
         main(
-            schema=os.path.join(workdir, 'assembly_qc.schema.json'), 
-            metrics=os.path.join(workdir, 'metrics_test.json'), 
-            json_path=os.path.join(workdir, 'result.json'), 
+            schema=os.path.join(workdir, 'assembly_qc.schema.json'),
+            metrics=os.path.join(workdir, 'metrics_test.json'),
+            json_path=os.path.join(workdir, 'result.json'),
             tsv_path=os.path.join(workdir, 'result.tsv'),
             # metadata_json=os.path.join(workdir, 'metadata.json')
         )
 
         # Compare resulting jsons as dict
-        with open(os.path.join(workdir, 'result.json'), 'r') as res, open(os.path.join(expected_path, 'assemblies_status.json'), 'r') as expect:
+        with open(
+            os.path.join(workdir, 'result.json'), 'r'
+        ) as res, open(
+            os.path.join(expected_path, 'assemblies_status.json'), 'r'
+        ) as expect:
             res_dict = load(res)
             exp_dict = load(expect)
             assert res_dict == exp_dict
