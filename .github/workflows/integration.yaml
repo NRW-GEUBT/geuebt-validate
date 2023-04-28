@@ -33,4 +33,5 @@ jobs:
         args: "-j 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml --config metadata=.tests/integration/data/metadata.tsv fastas=.tests/integration/data/fastas.tsv"
         stagein: |
             conda config --set channel_priority strict
+            echo $(pwd)
 
