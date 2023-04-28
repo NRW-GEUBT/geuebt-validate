@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Testing:
+  Unit testing:
     runs-on: ubuntu-latest
     steps:
     
@@ -24,14 +24,17 @@ jobs:
     - name: Unit testing
       run: |
         pytest .tests/unit
+
+  Integration testing:
+    runs-on: ubuntu-latest
+    steps:
     
     - name: Integration testing
       uses: snakemake/snakemake-github-action@v1.24.0
       with:
-        directory: '.tests'
+        directory: '.tests/integration'
         snakefile: 'workflow/Snakefile'
-        args: "-j 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml --config metadata=.tests/integration/data/metadata.tsv fastas=.tests/integration/data/fastas.tsv"
+        args: "--cores 1 --use-conda --conda-cleanup-pkgs cache --show-failed-logs"
         stagein: |
             conda config --set channel_priority strict
-            echo $(pwd)
 

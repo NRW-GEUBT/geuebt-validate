@@ -7,11 +7,11 @@
 # ----------------------
 
 # Path to the output directory, will be created if it doesn´t exist
-workdir: ./.tests/integration
+workdir: .tests/integration
 # Path to the metadata table
-metadata: ./data/metadata.tsv
+metadata: data/metadata.tsv
 # Path to the directory containing fasta files
-fasta_dir: ./data/fastas
+fasta_dir: data/fastas
 
 # Max number of threads assigned to single jobs
 max_threads_per_job: 1
