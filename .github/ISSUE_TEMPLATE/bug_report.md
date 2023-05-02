@@ -15,7 +15,7 @@ to this report, fill in the informations below and delete this message.
 
 **Version**
 
-Foodme Version: [see VERSION]
+Repository Version: [see VERSION]
 OS : [Windows/Mac/Linux]
 Snakemake version: [  `snakemake -v` ]
 

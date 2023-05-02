@@ -1,13 +1,16 @@
 site_name: geubt-validate
-site_url: URL
-site_description: DESC
-site_author: AUTHOR
+site_url: https://nrw-geubt.github.io/geuebt-validate/
+site_description: Input validation module of NRW-Geübt
+site_author: Gregoire Denay
 copyright: BSD 3-Clause license
 
-repo_url: URL
+repo_url: https://github.com/NRW-GEUBT/geuebt-validate
 
 nav:
   - Welcome: index.md
+  - Guide for users: user_guide.md
+  - Guide for developers: dev_guide.md
+  - Contributing : contributing.md
   - About: 
       - License: about/license.md
       - Release notes: about/changelog.md
