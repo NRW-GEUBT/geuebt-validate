@@ -1,4 +1,3 @@
-
 # Geübt Validate
 
 Data validation module of the Geübt application.

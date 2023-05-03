@@ -103,24 +103,6 @@ rule process_kraken:
         "../scripts/process_kraken.py"
 
 
-rule mlst:
-    input:
-        assembly="fastas/{metapass_id}.fa",
-    output:
-        json="assembly_qc/mlst/{metapass_id}.mlst.json",
-    message:
-        "[Assembly quality][{wildcards.metapass_id}] MLST scanning and sequence type"
-    conda:
-        "../envs/mlst.yaml"
-    log:
-        "logs/mlst_{metapass_id}.log",
-    shell:
-        """
-        exec 2> {log}
-        mlst -json {output.json} {input.assembly}
-        """
-
-
 rule merge_metrics:
     input:
         buscoflag="assembly_qc/busco/{metapass_id}/done.flag",
@@ -130,7 +112,7 @@ rule merge_metrics:
     output:
         json="assembly_qc/summaries/{metapass_id}.json",
     params:
-        # Getting name for funciton in params as there is no output rule for it
+        # Getting name for function in params as there is no output rule for it
         # see rule assembly_qc_busco
         busco=get_busco_out_name,
         isolate_id="{metapass_id}",

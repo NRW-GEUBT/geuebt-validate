@@ -29,3 +29,12 @@ def aggregate_metapass(wildcards):
         os.path.join(checkpoint_output, "{metapass_id}.fa")
     ).metapass_id
     return expand("assembly_qc/summaries/{metapass_id}.json", metapass_id=ids_map)
+
+
+def aggregate_qcpass(wildcards):
+    checkpoint_output = checkpoints.stage_fastas.get(**wildcards).output[0]
+    ids_map = glob_wildcards(
+        os.path.join(checkpoint_output, "{qc_pass_id}.fa")
+    ).qc_pass_id
+    return expand("staging/isolates_sheets/{qcpass_id}.json", qcpass_id=ids_map)
+

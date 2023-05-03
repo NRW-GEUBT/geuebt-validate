@@ -31,6 +31,8 @@ rule all:
         "validation/metadata_status.json",
         "validation/checksum_status.json",
         "validation/assemblies_status.json",
+        # "staging/validation_status.json",
+        "staging/isolates_datasheet.json",
 
 
 # Includes --------------------------------------------------------------------
@@ -38,6 +40,7 @@ rule all:
 
 include: "rules/validate_input.smk"
 include: "rules/validate_assemblies.smk"
+include: "rules/staging.smk"
 
 
 # Workflow --------------------------------------------------------------------

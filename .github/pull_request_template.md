@@ -8,6 +8,7 @@ Checklist
 - [ ] Title of this PR is meaningful
 - [ ] Comprehensive description of the changes
 - [ ] Link eventual issues
+- [ ] Add tests if nescessary
 - [ ] Test modifications
 - [ ] If there are new parameters: update config template
 - [ ] Update documentation if nescessary

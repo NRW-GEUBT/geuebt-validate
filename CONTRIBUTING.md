@@ -74,6 +74,8 @@ We use pytest for running unit tests. Make sure your current environment support
 a recent version of python (3.9 or 3.10).
 
 ```bash
+python -m pip install --upgrade pip
+pip install pytest
 pip install -r .tests/unit/requirements.txt  # Install tests dependencies
 pytest .tests/unit
 ```
