@@ -10,7 +10,7 @@ checkpoint stage_fastas:
     output:
         outdir=directory("staging/fastas"),
     params:
-        fasta_dir=f"fastas/"
+        fasta_dir=f"fastas/",
     message:
         "[Staging] Moving assemblies to staging area"
     conda:
@@ -53,43 +53,38 @@ rule create_isolate_sheet:
     conda:
         "../envs/pandas.yaml"
     log:
-        "logs/create_isolate_sheet_{qcpass_id}.log"
+        "logs/create_isolate_sheet_{qcpass_id}.log",
     script:
         "../scripts/create_isolate_sheet.py"
 
 
 rule merge_isolate_sheets:
-    input: 
+    input:
         qc_pass=aggregate_qcpass,
     output:
         json="staging/isolates_datasheet.json",
     message:
         "[Staging] Aggreagting isolate datasheets"
     log:
-        "logs/merge_isolate_sheets.log"
-    run:
-        import json
-        entries = []
-        for sheet in input.qc_pass:
-            with open(sheet, 'r') as fp:
-                entries.append(json.load(fp))
-        with open(output.json, 'w') as fp:
-            json.dump(entries, fp, indent=4)
+        "logs/merge_isolate_sheets.log",
+    conda:
+        "../envs/pandas.yaml"
+    script:
+        "../scripts/merge_isolate_sheets.py"
 
 
-# rule report_qc_status:
-    # input:
-        # metadata=,
-        # checksums=,
-        # assembly_qc=,
-    # output:
-        # json="staging/validation_status.json",
-        # tsv="staging/validation_status.tsv",
-    # message:
-        # "[Staging] Creating validation status reports"
-    # conda:
-        # "..envs/pandas.yaml"
-    # log:
-        # "logs/report_qc_status.log"
-    # script:
-        # "../scripts/report_qc_status.py"
+rule report_qc_status:
+    input:
+        metadata="validation/metadata_status.json",
+        checksums="validation/checksum_status.json",
+        assembly_qc="validation/assemblies_status.json",
+    output:
+        json="staging/validation_status.json",
+    message:
+        "[Staging] Creating validation status reports"
+    conda:
+        "../envs/pandas.yaml"
+    log:
+        "logs/report_qc_status.log"
+    script:
+        "../scripts/report_qc_status.py"

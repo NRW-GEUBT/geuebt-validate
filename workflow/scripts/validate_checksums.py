@@ -39,14 +39,17 @@ def validate_fasta(x, fasta_prefix=None):
         md5hex = md5(fasta)
         if md5hex == x['fasta_md5']:
             status = 'PASS'
-            mssg = ''
+            mssg = []
         else:
             status = 'FAIL'
-            mssg = f"Fasta file {x['fasta_name']} does not match the specified MD5 hash"
+            mssg = [
+                f"Fasta file {x['fasta_name']} does not match the specified MD5 hash. "
+                f"Got '{md5hex}', expected '{x['fasta_md5']}'."
+            ]
     else:
         md5hex = pd.NA
         status = 'FAIL'
-        mssg = f"Fasta file {x['fasta_name']} does not exist in the specified path"
+        mssg = [f"Fasta file {x['fasta_name']} does not exist in the specified path"]
     return pd.Series([md5hex, status, mssg])
 
 

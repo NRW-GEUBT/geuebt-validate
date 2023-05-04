@@ -37,4 +37,3 @@ def aggregate_qcpass(wildcards):
         os.path.join(checkpoint_output, "{qc_pass_id}.fa")
     ).qc_pass_id
     return expand("staging/isolates_sheets/{qcpass_id}.json", qcpass_id=ids_map)
-

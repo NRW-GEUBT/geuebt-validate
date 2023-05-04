@@ -31,7 +31,7 @@ rule all:
         "validation/metadata_status.json",
         "validation/checksum_status.json",
         "validation/assemblies_status.json",
-        # "staging/validation_status.json",
+        "staging/validation_status.json",
         "staging/isolates_datasheet.json",
 
 
