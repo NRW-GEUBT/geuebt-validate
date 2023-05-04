@@ -1,0 +1,24 @@
+{
+    "2022-0000001": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000002": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000003": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000004": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field fasta_md5. Expected type: string, got None"
+        ]
+    },
+    "2022-0000005": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    }
+}

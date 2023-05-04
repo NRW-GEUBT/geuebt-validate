@@ -1,4 +1,4 @@
 
-# Welcome to the documentation of REPO
+# Welcome to the documentation of Geübt-Validate
 
 TBD

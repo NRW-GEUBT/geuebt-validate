@@ -1,0 +1,34 @@
+{
+    "2022-0000001": {
+        "fasta_name": "fasta01.fa",
+        "fasta_md5": "9ca23998bf9532a78a980801beeff6d7",
+        "local_md5": "9ca23998bf9532a78a980801beeff6d7",
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000002": {
+        "fasta_name": "fasta02.fa",
+        "fasta_md5": "456dc634c6196a34e8a592f97be498d7",
+        "local_md5": "9ca23998bf9532a78a980801beeff6d7",
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Fasta file fasta02.fa does not match the specified MD5 hash. Got '9ca23998bf9532a78a980801beeff6d7', expected '456dc634c6196a34e8a592f97be498d7'."
+        ]
+    },
+    "2022-0000003": {
+        "fasta_name": "fasta03.fa",
+        "fasta_md5": "456dc634c6196a34e8a592f97be498d7",
+        "local_md5": null,
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Fasta file fasta03.fa does not exist in the specified path"
+        ]
+    },
+    "2022-0000005": {
+        "fasta_name": "fasta05.fa",
+        "fasta_md5": "4915b2256985ffe37287ad790426b8fe",
+        "local_md5": "4915b2256985ffe37287ad790426b8fe",
+        "STATUS": "PASS",
+        "MESSAGES": []
+    }
+}

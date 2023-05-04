@@ -11,7 +11,7 @@ min_version("6.3.0")
 shell.executable("bash")
 
 
-configfile: os.path.join(workflow.basedir, "..", ".tests", "config", "config.yaml")
+configfile: os.path.join(workflow.basedir, "..", ".tests", "integration", "config", "config.yaml")
 
 
 # Validating samples in rules/common
@@ -28,17 +28,27 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        
+        "validation/metadata_status.json",
+        "validation/checksum_status.json",
+        "validation/assemblies_status.json",
+        "staging/validation_status.json",
+        "staging/isolates_datasheet.json",
 
 
 # Includes --------------------------------------------------------------------
 
 
+include: "rules/validate_input.smk"
+include: "rules/validate_assemblies.smk"
+include: "rules/staging.smk"
+
+
 # Workflow --------------------------------------------------------------------
+## send notifications with onsuccess and onerror
 
 
 onstart:
-    print(f"\nYou are using <WORKFLOWNAME> version: {version}")
+    print(f"\nYou are using GEUEBT-VALIDATE version: {version}")
     with open(pipe_log, "a") as f:
         f.write(f"[{get_local_time()}]: Pipeline started\n")
 
@@ -62,7 +72,7 @@ onerror:
     print(
         f"\nAn error occured, please consider filing an bug report."
         f"\n"
-        f"\nIssue tracker: https://github.com/<REPO URL>/issues"
+        f"\nIssue tracker: https://github.com/NRW-GEUBT/geuebt-validate/issues"
     )
     with open(pipe_log, "a") as f:
         f.write(f"[{get_local_time()}]: Pipeline stopped on error\n")

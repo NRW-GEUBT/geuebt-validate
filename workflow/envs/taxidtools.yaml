@@ -1,0 +1,8 @@
+name: taxidtools
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pandas=1.5.3
+  - taxidtools=2.2.3

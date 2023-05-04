@@ -1,0 +1,426 @@
+{
+    "2022-0000001": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000002": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Duplicated value in field isolate_id: 2022-0000002",
+            "Duplicated value in field isolate_id: 2022-0000002"
+        ]
+    },
+    "null": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field isolate_id. Expected type: string, got None"
+        ]
+    },
+    "2022LI0002": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field isolate_id. Expected pattern: ^(19[9-9][0-9]|2[0-1][0-4][0-9]|2150)-[0-9]{7}(-[0-9]{2})?$, got 2022LI0002"
+        ]
+    },
+    "2022-0000001-01": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000003-01": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sample_id. Expected type: string, got None"
+        ]
+    },
+    "2022-0000003-02": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sample_id. Expected pattern: ^(19[9-9][0-9]|2[0-1][0-4][0-9]|2150)-[0-9]{7}(-[0-9]{2})?$, got 2022LI0003"
+        ]
+    },
+    "2022-0000004": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000005": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000006": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000007": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field organism. Expected enum: ['Listeria monocytogenes', 'Salmonella enterica', 'Campylobacter spp.', 'Escherichia coli'], got Invalid name"
+        ]
+    },
+    "2022-0000008": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field organism. Expected type: string, got None",
+            "Invalid value in field organism. Expected enum: ['Listeria monocytogenes', 'Salmonella enterica', 'Campylobacter spp.', 'Escherichia coli'], got None"
+        ]
+    },
+    "2022-0000009": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000010": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000011": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000012": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000013": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000014": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field isolation_org. Expected enum: ['RRW', 'OWL', 'WFL', 'RLD', 'MEL', 'unknown'], got invalid"
+        ]
+    },
+    "2022-0000015": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field isolation_org. Expected type: string, got None",
+            "Invalid value in field isolation_org. Expected enum: ['RRW', 'OWL', 'WFL', 'RLD', 'MEL', 'unknown'], got None"
+        ]
+    },
+    "2022-0000016": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000017": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000018": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000019": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000020": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000021": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_org. Expected enum: ['RRW', 'OWL', 'WFL', 'RLD', 'MEL', 'unknown'], got invalid"
+        ]
+    },
+    "2022-0000022": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_org. Expected type: string, got None",
+            "Invalid value in field sequencing_org. Expected enum: ['RRW', 'OWL', 'WFL', 'RLD', 'MEL', 'unknown'], got None"
+        ]
+    },
+    "2022-0000023": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000024": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000025": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000026": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000027": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000028": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field bioinformatics_org. Expected enum: ['RRW', 'OWL', 'WFL', 'RLD', 'MEL', 'unknown'], got invalid"
+        ]
+    },
+    "2022-0000029": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field bioinformatics_org. Expected type: string, got None",
+            "Invalid value in field bioinformatics_org. Expected enum: ['RRW', 'OWL', 'WFL', 'RLD', 'MEL', 'unknown'], got None"
+        ]
+    },
+    "2022-0000030": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000031": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field third_party_owner. Expected type: string, got None"
+        ]
+    },
+    "2022-0000033": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field third_party_flag. Expected enum: ['true', 'false'], got "
+        ]
+    },
+    "2022-0000034": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000035": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000036": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000037": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000038": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000039": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sample_type. Expected enum: ['lebensmittel', 'futtermittel', 'tier', 'umfeld', 'human', 'unknown'], got invalid"
+        ]
+    },
+    "2022-0000040": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sample_type. Expected type: string, got None",
+            "Invalid value in field sample_type. Expected enum: ['lebensmittel', 'futtermittel', 'tier', 'umfeld', 'human', 'unknown'], got None"
+        ]
+    },
+    "2022-0000041": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Duplicated value in field fasta_name: fastadup.fa"
+        ]
+    },
+    "2022-0000042": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Duplicated value in field fasta_name: fastadup.fa"
+        ]
+    },
+    "2022-0000043": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field fasta_name. Expected type: string, got None"
+        ]
+    },
+    "2022-0000044": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field fasta_md5. Expected type: string, got None"
+        ]
+    },
+    "2022-0000045": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field collection_date. Expected anyOf: [{'format': 'date'}, {'enum': ['unknown']}], got 235696"
+        ]
+    },
+    "2022-0000046": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field collection_date. Expected type: string, got None"
+        ]
+    },
+    "2022-0000047": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field collection_municipality. Expected type: string, got None"
+        ]
+    },
+    "2022-0000048": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field collection_country. Expected type: string, got None"
+        ]
+    },
+    "2022-0000049": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field collection_country. Expected anyOf: [{'pattern': '^([A-Z]{2}|unknown)$'}, {'enum': ['unknown']}], got DEU"
+        ]
+    },
+    "2022-0000050": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field collection_cause. Expected type: string, got None"
+        ]
+    },
+    "2022-0000051": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field collected_by. Expected type: string, got None"
+        ]
+    },
+    "2022-0000052": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field designation. Expected type: string, got None"
+        ]
+    },
+    "2022-0000053": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field manufacturer_type. Expected type: string, got None"
+        ]
+    },
+    "2022-0000054": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sample_description. Expected type: string, got None"
+        ]
+    },
+    "2022-0000055": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000056": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected minimum: 20, got 19.0"
+        ]
+    },
+    "2022-0000057": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected maximum: 200, got 201.0"
+        ]
+    },
+    "2022-0000058": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected type: number, got None"
+        ]
+    },
+    "2022-0000059": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected minimum: 30, got 29.0"
+        ]
+    },
+    "2022-0000060": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected maximum: 200, got 201.0"
+        ]
+    },
+    "2022-0000061": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected type: number, got None"
+        ]
+    },
+    "2022-0000062": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected minimum: 20, got 19.0"
+        ]
+    },
+    "2022-0000063": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected maximum: 200, got 201.0"
+        ]
+    },
+    "2022-0000064": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected type: number, got None"
+        ]
+    },
+    "2022-0000065": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected minimum: 40, got 39.0"
+        ]
+    },
+    "2022-0000066": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected maximum: 200, got 201.0"
+        ]
+    },
+    "2022-0000067": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field sequencing_depth. Expected type: number, got None"
+        ]
+    },
+    "2022-0000068": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field ref_coverage. Expected type: number, got None"
+        ]
+    },
+    "2022-0000069": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field q30. Expected minimum: 0.8, got 0.79"
+        ]
+    },
+    "2022-0000070": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field q30. Expected type: number, got None"
+        ]
+    },
+    "2022-0000071": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000072-01": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000073": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field fasta_md5. Expected pattern: ^[0-9a-f]{32}$, got thisisnotavalidhashresult"
+        ]
+    },
+    "2022-0000074": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000075": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0000076": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field isolation_org. Expected enum: ['RRW', 'OWL', 'WFL', 'RLD', 'MEL', 'unknown'], got Invalid",
+            "Invalid value in field bioinformatics_org. Expected type: string, got None",
+            "Invalid value in field bioinformatics_org. Expected enum: ['RRW', 'OWL', 'WFL', 'RLD', 'MEL', 'unknown'], got None",
+            "Invalid value in field fasta_md5. Expected pattern: ^[0-9a-f]{32}$, got efwfwfe",
+            "Invalid value in field collection_date. Expected anyOf: [{'format': 'date'}, {'enum': ['unknown']}], got 123652",
+            "Invalid value in field third_party_owner. Expected type: string, got None",
+            "Invalid value in field sequencing_depth. Expected minimum: 20, got 10.0"
+        ]
+    }
+}

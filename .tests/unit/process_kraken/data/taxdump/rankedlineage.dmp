@@ -1,0 +1,15 @@
+1	|	root	|		|		|		|		|		|		|		|		|
+2	|	Bacteria	|		|		|		|		|		|		|		|		|
+1783272	|	Terrabacteria group	|		|		|		|		|		|		|		|	Bacteria	|
+1239	|	Bacillota	|		|		|		|		|		|		|		|	Bacteria	|
+91061	|	Bacilli	|		|		|		|		|		|	Bacillota	|		|	Bacteria	|
+1385	|	Bacillales	|		|		|		|		|	Bacilli	|	Bacillota	|		|	Bacteria	|
+186820	|	Listeriaceae	|		|		|		|	Bacillales	|	Bacilli	|	Bacillota	|		|	Bacteria	|
+1637	|	Listeria	|		|		|	Listeriaceae	|	Bacillales	|	Bacilli	|	Bacillota	|		|	Bacteria	|
+1639	|	Listeria monocytogenes	|		|	Listeria	|	Listeriaceae	|	Bacillales	|	Bacilli	|	Bacillota	|		|	Bacteria	|
+882095	|	Listeria monocytogenes ATCC 19117	|	Listeria monocytogenes	|	Listeria	|	Listeriaceae	|	Bacillales	|	Bacilli	|	Bacillota	|		|	Bacteria	|
+81852	|	Enterococcaceae	|		|		|		|	Lactobacillales	|	Bacilli	|	Bacillota	|		|	Bacteria	|
+1351	|	Enterococcus faecalis	|		|	Enterococcus	|	Enterococcaceae	|	Lactobacillales	|	Bacilli	|	Bacillota	|		|	Bacteria	|
+1350	|	Enterococcus	|		|		|	Enterococcaceae	|	Lactobacillales	|	Bacilli	|	Bacillota	|		|	Bacteria	|
+186826	|	Lactobacillales	|		|		|		|		|	Bacilli	|	Bacillota	|		|	Bacteria	|
+131567	|	cellular organisms	|		|		|		|		|		|		|		|		|
