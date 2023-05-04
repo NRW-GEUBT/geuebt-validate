@@ -28,7 +28,7 @@ def main(metadata_status, checksum_status, assembly_status, json_path):
     for k in meta.keys():
         dout[k] = meta[k]
         # Order matters here! Failed samples are not taken to the next step
-        for d in [checksum, ass]: 
+        for d in [checksum, ass]:
             try:
                 dout[k]['STATUS'] = d[k]['STATUS']
                 dout[k]['MESSAGES'].extend(d[k]['MESSAGES'])

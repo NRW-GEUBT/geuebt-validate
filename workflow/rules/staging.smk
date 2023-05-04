@@ -85,6 +85,6 @@ rule report_qc_status:
     conda:
         "../envs/pandas.yaml"
     log:
-        "logs/report_qc_status.log"
+        "logs/report_qc_status.log",
     script:
         "../scripts/report_qc_status.py"
