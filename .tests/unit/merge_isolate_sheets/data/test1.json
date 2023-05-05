@@ -1,0 +1,65 @@
+{
+    "isolate_id": "2022-0232977-01",
+    "sample_id": "2022-0232977",
+    "organism": "Salmonella enterica",
+    "isolate_name_alt": null,
+    "third_party_flag": "true",
+    "third_party_owner": "BfR",
+    "sample_type": "unknown",
+    "fasta_name": "0232977-01.fasta",
+    "fasta_md5": "b9621a5adb8e59cbea8034bfc04fca44",
+    "isolation": {
+        "org_name": "unknown"
+    },
+    "sequencing": {
+        "org_name": "RRW",
+        "extraction_method": null,
+        "library_method": null,
+        "sequencing_instrument": null
+    },
+    "bioinformatics": {
+        "org_name": "RRW",
+        "assembly_method": null
+    },
+    "epidata": {
+        "collection_date": "2023-03-28",
+        "municipality": "unknown",
+        "country": "DE",
+        "cause": "Proficiency Test",
+        "collected_by": "unknown",
+        "manufacturer": null,
+        "designation": "unknown",
+        "manufacturer_type": "unknown",
+        "sample_description": "unkown",
+        "lot_number": null
+    },
+    "mlst": {
+        "sequence_type": "34",
+        "scheme": "senterica_achtman_2",
+        "alleles": {
+            "purE": "5",
+            "hemD": "12",
+            "thrA": "2",
+            "sucA": "9",
+            "hisD": "9",
+            "dnaN": "19",
+            "aroC": "10"
+        }
+    },
+    "qc_metrics": {
+        "sequencing_depth": 45.6,
+        "ref_coverage": 0.99,
+        "q30": 0.9,
+        "N50": 284333,
+        "L50": 5,
+        "n_contigs_1kbp": 53,
+        "assembly_size": 4960041,
+        "GC_perc": 52.13,
+        "orthologs_found": 98.4,
+        "duplicated_orthologs": 0.0,
+        "majority_genus": "Salmonella",
+        "fraction_majority_genus": 0.9971668689656122,
+        "majority_species": "Salmonella enterica",
+        "fraction_majority_species": 0.9971575751364787
+    }
+}

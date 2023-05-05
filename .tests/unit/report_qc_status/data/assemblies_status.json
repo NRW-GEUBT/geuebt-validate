@@ -1,0 +1,10 @@
+{
+    "2022-0232977-01": {
+        "STATUS": "PASS",
+        "MESSAGES": []
+    },
+    "2022-0232977-02": {
+        "STATUS": "FAIL",
+        "MESSAGES": ["Error message assembly"]
+    }
+}

@@ -1,0 +1,17 @@
+[
+   {
+      "alleles" : {
+         "purE" : "5",
+         "hemD" : "12",
+         "thrA" : "2",
+         "sucA" : "9",
+         "hisD" : "9",
+         "dnaN" : "19",
+         "aroC" : "10"
+      },
+      "scheme" : "senterica_achtman_2",
+      "filename" : "fastas/2022-0232977-01.fa",
+      "id" : "fastas/2022-0232977-01.fa",
+      "sequence_type" : "34"
+   }
+]
