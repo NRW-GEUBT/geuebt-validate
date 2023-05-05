@@ -19,3 +19,7 @@
 ### Sequence files
 
 ## Results
+
+### Isolate sheets
+
+### QC status report
