@@ -4,11 +4,11 @@
 
 ### Conda
 
-Install conda from any distribution, i.e. miniconda. 
+Install conda from any distribution, i.e. miniconda.
 You can follow the setup guide from the [Bioconda team](https://bioconda.github.io/).
 
 We advise installing the mamaba solver in the base environement to speed up
-environments creation. 
+environments creation.
 
 ```bash
 conda install mamba -n base -c conda-forge
@@ -25,7 +25,7 @@ mamba create -n snakemake snakemake
 
 ### Install module and databases
 
-Download the [latest realease](https://github.com/NRW-GEUBT/geuebt-validate/releases/latest) 
+Download the [latest realease](https://github.com/NRW-GEUBT/geuebt-validate/releases/latest)
 and unpack it.
 
 If you're feeling brave, clone the repository form Github:
@@ -39,7 +39,7 @@ It may take a little time so be patient!
 
 ### Manually install databases
 
-If for any reason you want to manually install database it is possible to provide 
+If for any reason you want to manually install database it is possible to provide
 a custom path in the configuration.
 
 Following databases are required:
@@ -47,7 +47,7 @@ Following databases are required:
 #### Kraken2
 
 Preformatted kraken2 databases are available from:
-https://benlangmead.github.io/aws-indexes/k2
+[https://benlangmead.github.io/aws-indexes/k2](https://benlangmead.github.io/aws-indexes/k2)
 
 The workflow uses the Standard-8 (2023-03-14) as default.
 
@@ -67,17 +67,17 @@ Using other taxonomy definitions is not supported.
 
 The configuaration can be defined in two ways:
 
-- either edit and locally save the `config/config.yaml` files and provide its path 
+- either edit and locally save the `config/config.yaml` files and provide its path
   to the snakemake command with the `--configfile` argument
 
-- or provide the parameters directly to the snakemake command with 
-  `--config <ARGNAME>=<VALUE>` 
+- or provide the parameters directly to the snakemake command with
+  `--config <ARGNAME>=<VALUE>`
 
 ### User defined parameters
 
 Following arguments must be provided for each run:
 
-| Parameter | Type | Description | 
+| Parameter | Type | Description |
 | --- | --- | --- |
 | `workdir` | path-like string | Path to the ouptut directory |
 | `metadata` | path-like string | Path to the metadata file in TSV format |
@@ -87,7 +87,7 @@ Following arguments must be provided for each run:
 
 Following parameters are optional and will revert to defaults if not set:
 
-| Parameter | Type | Default | Description | 
+| Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
 | `max_threads_per_job` | integer | 1 | Max number of threads assigned to a single job |
 | `kraken2_db` | path-like string | Dafault installation in `~/.nrw-geuebt/` | Path to the kraken2 database folder |
@@ -147,7 +147,7 @@ See an example of metadata table in the `config` folder.
 
 ### Sequence files
 
-The assemblies must be provided as fasta file. 
+The assemblies must be provided as fasta file.
 Wrapped and unwrapped fastas as well as multifastas are allowed.
 There are no special requirements for sequence headers.
 
@@ -160,12 +160,12 @@ Acceptance criteria are defined by expected species as follows:
 | --- | --- | --- | --- | --- |
 | Sequencing depth | 20 - 200 | 30 - 200 | 20 - 200 | 40 - 200 |
 | Q30 | >= 0.80 | >= 0.80 | >= 0.80 | >= 0.80 |
-| Number of contigs > 1 kb | 300 | 300 | 300 | 500 | 
+| Number of contigs > 1 kb | 300 | 300 | 300 | 500 |
 | Assembly size (bp) | 2,700,000 - 3,200,000 | 4,300,000 - 5,200,000 | 1,500,000 - 1,900,000 | 4,500,000 - 5,900,000 |
 | %GC | 33.9 - 41.9 | 48.1 - 56.1 | 26.4 - 35.3 | 46.6 - 54.6 |
 | Orthologs found (%) | >=95 % | >=95 % | >=80% | >=95 % |
 | Duplicated orthologs (%) | <= 5 % | <= 5 % | <= 5 % | <= 5 % |
-| Fraction majority Genus | >= 0.95 | >= 0.95 | >= 0.90 | >= 0.90 | 
+| Fraction majority Genus | >= 0.95 | >= 0.95 | >= 0.90 | >= 0.90 |
 | Majority genus | Listeria | Salmonella | Campylobacter | Escherichia or Shigella |
 
 ## Results
