@@ -8,5 +8,40 @@ properties:
     type: string
     description: Output directory
   
+  metadata:
+    type: string
+    description: Path to the metadata file in TSV format
+  
+  fasta_dir:
+    type: string
+    description: Path to the folder containing assembly files in fasta format
+  
+  max_threads_per_job:
+    type: integer
+    description: Max number of threads assigned to a single job
+  
+  kraken2_db:
+    type: string
+    description: Path to the kraken2 database folder
+  
+  busco_db:
+    type: string
+    description: Path to the busco database folder
+  
+  taxdump:
+    type: string
+    description: Path to the taxdump database folder
+  
+  min_contig_length:
+    type: integer
+    description: Minimal contig length (in bp) to be included in the calculation of assembly statistics
+  
   required:
     - workdir
+    - metadata
+    - fasta_dir
+    - may_threads_per_job
+    - kraken2_db
+    - busco_db
+    - taxdump
+    - min_contig_length

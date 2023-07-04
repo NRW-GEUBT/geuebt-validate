@@ -90,9 +90,9 @@ Following parameters are optional and will revert to defaults if not set:
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
 | `max_threads_per_job` | integer | 1 | Max number of threads assigned to a single job |
-| `kraken2_db` | path-like string | Dafault installation in `~/.nrw-geuebt/` | Path to the kraken2 database folder |
-| `busco_db` | path-like string | Dafault installation in `~/.nrw-geuebt/` | Path to the busco database folder |
-| `taxdump` | path-like string | Dafault installation in `~/.nrw-geuebt/` | Path to the taxdump database folder |
+| `kraken2_db` | path-like string | Default installation in `~/.nrw-geuebt/` | Path to the kraken2 database folder |
+| `busco_db` | path-like string | Default installation in `~/.nrw-geuebt/` | Path to the busco database folder |
+| `taxdump` | path-like string | Default installation in `~/.nrw-geuebt/` | Path to the taxdump database folder |
 | `min_contig_length` | integer | 500 | Minimal contig length (in bp)<br>to be included in the calculation of assembly<br>statistics |
 
 ## Usage

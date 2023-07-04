@@ -1,3 +1,7 @@
+### 0.1.2
+
+Checking config file with schema
+
 ### 0.1.1
 
 Adding unit tests

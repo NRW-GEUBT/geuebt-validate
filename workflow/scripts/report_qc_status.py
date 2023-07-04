@@ -35,7 +35,6 @@ def main(metadata_status, checksum_status, assembly_status, json_path):
             except KeyError:
                 pass
     # dump JSON
-    print(dout)
     with open(json_path, 'w') as fp:
         json.dump(dout, fp, indent=4)
 
