@@ -25,6 +25,8 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
         mlst_dict = json.load(fp)[0]  # mlst res as list of dict
     # get relevant entries from metadata
     dictout = meta_dict[isolate_id]
+    # NB: fastas are renamed to match isolated_id
+    dictout["fasta_name"] = isolate_id
     # reformat metadata
     dictout['isolation'] = {
         'org_name': dictout.pop('isolation_org'),
