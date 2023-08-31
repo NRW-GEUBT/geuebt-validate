@@ -52,8 +52,5 @@ jobs:
         name: fail-logs
         path: |
           .tests/integration/logs/
-          .tests/integration/allele_calling/logs
-          .tests/integration/join_clusters_main/logs
-          .tests/integration/join_clusters_sub/logs
         if-no-files-found: warn
         retention-days: 3
