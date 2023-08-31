@@ -10,3 +10,5 @@ User uploaded metadata and assemblies are checked for conformity in the followin
   fasta integrity
 - A set of assembly metrics is calculated based on the provided assemblies to
   ensure that the data fulfill the minimal quality requirements
+
+While this module can be used on its own, it is recommended to use the Geübt-core application instead.

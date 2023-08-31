@@ -55,7 +55,7 @@
         },
         "sample_type": {
             "type": "string",
-            "enum":  ["lebensmittel", "futtermittel", "tier", "umfeld", "human", "unknown"]
+            "enum":  ["lebensmittel", "futtermittel", "tier", "umfeld", "human", "ringtrial", "unknown"]
         },
         "fasta_name": {
             "type": "string"
