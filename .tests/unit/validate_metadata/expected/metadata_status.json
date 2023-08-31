@@ -201,14 +201,14 @@
     "2022-0000039": {
         "STATUS": "FAIL",
         "MESSAGES": [
-            "Invalid value in field sample_type. Expected enum: ['lebensmittel', 'futtermittel', 'tier', 'umfeld', 'human', 'unknown'], got invalid"
+            "Invalid value in field sample_type. Expected enum: ['lebensmittel', 'futtermittel', 'tier', 'umfeld', 'human', 'ringtrial', 'unknown'], got invalid"
         ]
     },
     "2022-0000040": {
         "STATUS": "FAIL",
         "MESSAGES": [
             "Invalid value in field sample_type. Expected type: string, got None",
-            "Invalid value in field sample_type. Expected enum: ['lebensmittel', 'futtermittel', 'tier', 'umfeld', 'human', 'unknown'], got None"
+            "Invalid value in field sample_type. Expected enum: ['lebensmittel', 'futtermittel', 'tier', 'umfeld', 'human', 'ringtrial', 'unknown'], got None"
         ]
     },
     "2022-0000041": {
