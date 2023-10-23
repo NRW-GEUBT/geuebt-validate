@@ -1,3 +1,7 @@
+### 0.1.5
+
+Relaxed regex for sample naming, subsample number now accepts tow to many digits (eg. 2023-0001254-01 or 2023-0001254-5236)
+
 ### 0.1.4
 
 Added 'ringtrial' sample type
