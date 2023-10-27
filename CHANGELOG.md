@@ -1,3 +1,7 @@
+### 0.1.6
+
+Remove unnescessary `isolate_id` field check in assembly QC
+
 ### 0.1.5
 
 Relaxed regex for sample naming, subsample number now accepts tow to many digits (eg. 2023-0001254-01 or 2023-0001254-5236)
