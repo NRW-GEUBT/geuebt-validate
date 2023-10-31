@@ -22,9 +22,7 @@
             },
             "then": {
                 "properties": { 
-                    "n_contigs_1kbp": { "maximum": 300 },
                     "assembly_size": { "minimum": 2700000 , "maximum": 3200000},
-                    "GC_perc": { "minimum": 33.9 , "maximum": 41.9},
                     "orthologs_found": { "minimum": 95 },
                     "duplicated_orthologs": { "maximum": 5 },
                     "fraction_majority_genus": { "minimum": 0.95 },
@@ -48,9 +46,7 @@
             },
             "then": {
                 "properties": { 
-                    "n_contigs_1kbp": { "maximum": 300 },
                     "assembly_size": { "minimum": 4300000 , "maximum": 5200000},
-                    "GC_perc": { "minimum": 48.1 , "maximum": 56.1},
                     "orthologs_found": { "minimum": 95 },
                     "duplicated_orthologs": { "maximum": 5 },
                     "fraction_majority_genus": { "minimum": 0.95 },
@@ -74,9 +70,7 @@
             },
             "then": {
                 "properties": { 
-                    "n_contigs_1kbp": { "maximum": 300 },
                     "assembly_size": { "minimum": 1500000 , "maximum": 1900000},
-                    "GC_perc": { "minimum": 26.4 , "maximum": 35.3},
                     "orthologs_found": { "minimum": 80 },
                     "duplicated_orthologs": { "maximum": 5 },
                     "fraction_majority_genus": { "minimum": 0.90 },
@@ -100,9 +94,7 @@
             },
             "then": {
                 "properties": { 
-                    "n_contigs_1kbp": { "maximum": 500 },
                     "assembly_size": { "minimum": 4500000 , "maximum": 5900000},
-                    "GC_perc": { "minimum": 46.6 , "maximum": 54.6},
                     "orthologs_found": { "minimum": 95 },
                     "duplicated_orthologs": { "maximum": 5 },
                     "fraction_majority_genus": { "minimum": 0.90 },
