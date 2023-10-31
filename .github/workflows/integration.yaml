@@ -41,7 +41,7 @@ jobs:
       with:
         directory: '.tests/integration'
         snakefile: 'workflow/Snakefile'
-        args: "--cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml" -n
+        args: "--cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml -n"
         stagein: |
             conda config --set channel_priority strict
     
