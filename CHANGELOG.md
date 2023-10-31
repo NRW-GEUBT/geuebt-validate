@@ -1,3 +1,7 @@
+### 0.1.7
+
+Removedhard QC threshold oncontigs > 1kb and GC percent. This are optionnal parameters in the ASU and should be checked in the assembly.
+
 ### 0.1.6
 
 Remove unnescessary `isolate_id` field check in assembly QC

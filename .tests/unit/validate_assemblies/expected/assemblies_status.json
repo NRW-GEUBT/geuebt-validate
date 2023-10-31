@@ -4,10 +4,8 @@
         "MESSAGES": []
     },
     "2022-0232977-02": {
-        "STATUS": "FAIL",
-        "MESSAGES": [
-            "Invalid value in field n_contigs_1kbp. Expected maximum: 300, got 301"
-        ]
+        "STATUS": "PASS",
+        "MESSAGES": []
     },
     "2022-0232977-03": {
         "STATUS": "FAIL",
@@ -22,16 +20,12 @@
         ]
     },
     "2022-0232977-05": {
-        "STATUS": "FAIL",
-        "MESSAGES": [
-            "Invalid value in field GC_perc. Expected minimum: 48.1, got 48"
-        ]
+        "STATUS": "PASS",
+        "MESSAGES": []
     },
     "2022-0232977-06": {
-        "STATUS": "FAIL",
-        "MESSAGES": [
-            "Invalid value in field GC_perc. Expected maximum: 56.1, got 57"
-        ]
+        "STATUS": "PASS",
+        "MESSAGES": []
     },
     "2022-0232977-07": {
         "STATUS": "FAIL",

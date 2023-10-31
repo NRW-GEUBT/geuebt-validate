@@ -380,7 +380,7 @@
     "2022-0000069": {
         "STATUS": "FAIL",
         "MESSAGES": [
-            "Invalid value in field q30. Expected minimum: 0.8, got 0.79"
+            "Invalid value in field q30. Expected minimum: 0.75, got 0.61"
         ]
     },
     "2022-0000070": {
