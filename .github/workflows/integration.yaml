@@ -41,16 +41,6 @@ jobs:
       with:
         directory: '.tests/integration'
         snakefile: 'workflow/Snakefile'
-        args: "--cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml -n"
+        args: "--cores 1 --use-conda --conda-cleanup-pkgs cache --conda-prefix envs --show-failed-logs --configfile .tests/integration/config/config.yaml -n --all-temp"
         stagein: |
             conda config --set channel_priority strict
-    
-    - name: Archive logs on fail
-      if: ${{ failure() }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: fail-logs
-        path: |
-          .tests/integration/logs/
-        if-no-files-found: warn
-        retention-days: 3

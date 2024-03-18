@@ -1,6 +1,0 @@
-name: jsonschema
-channels:
-  - conda-forge
-dependencies:
-  - pandas=1.5.3
-  - jsonschema=4.17.3
