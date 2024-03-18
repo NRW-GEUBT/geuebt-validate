@@ -14,7 +14,6 @@ except NameError:
 
 import json
 import datetime
-import numpy as np
 import pandas as pd
 from enum import Enum
 from typing import Optional, Annotated, Any, TypeVar, Union
@@ -82,7 +81,7 @@ class SampleTypesEnum(str, Enum):
 
 class Metadata(BaseModel, validate_assignment=True):
     """
-    Implements the GEÜBt Metadata Model 
+    Implements the GEÜBt Metadata Model
     Version 2 (2024-03)
     """
     isolate_id: str
@@ -121,7 +120,7 @@ class Metadata(BaseModel, validate_assignment=True):
     @classmethod
     def check_fractions(cls, v: float) -> float:
         if v < 0 or v > 1:
-            raise ValueError(f"must be given as a fraction between 0 and 1")
+            raise ValueError("must be given as a fraction between 0 and 1")
         return v
 
     @field_validator('q30')
@@ -178,6 +177,7 @@ def validate_record(record: dict, model: Metadata):
         status = "PASS"
     except ValidationError as e:
         status = "FAIL"
+        m = {}
         for error in e.errors():
             # Make error pretty
             if len(error['loc']) == 1:
@@ -191,7 +191,7 @@ def validate_record(record: dict, model: Metadata):
             else:
                 msg += f"'{error['msg']}', got '{error['input']}' instead"
             messages.append(msg)
-    return status, messages
+    return status, messages, m
 
 
 def main(metadata, json_path, tsv_path, metadata_json):
@@ -208,7 +208,7 @@ def main(metadata, json_path, tsv_path, metadata_json):
     valid_records = {}
     validation_status = {}
     for record in records:
-        status, errors = validate_record(record, Metadata)
+        status, errors, parsed = validate_record(record, Metadata)
         validation_status.update(
             {
                 record['isolate_id']: {
@@ -217,9 +217,9 @@ def main(metadata, json_path, tsv_path, metadata_json):
                 }
             }
         )
-        # save valid records
+        # save parsed records
         if status == 'PASS':
-            valid_records[record['isolate_id']] = record
+            valid_records[record['isolate_id']] = parsed.dict()
 
     # export valid metadata to Json file
     with open(metadata_json, 'w') as f:
