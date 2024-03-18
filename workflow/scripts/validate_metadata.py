@@ -195,7 +195,7 @@ def validate_record(record: dict, model: Metadata):
 
 
 def main(metadata, json_path, tsv_path, metadata_json):
-    # load metadata as dataframe 
+    # load metadata as dataframe
     metatable = pd.read_csv(
         metadata,
         sep='\t',
