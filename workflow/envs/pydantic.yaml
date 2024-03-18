@@ -1,0 +1,6 @@
+name: pydantic
+channels:
+  - conda-forge
+dependencies:
+  - pandas=1.5.3
+  - pydantic=2.6.4
