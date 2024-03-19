@@ -1,3 +1,8 @@
+### 0.2.0
+
+- Implements GEÜBT Metadata v2 (03-2024)
+- Changed input validation from a JSON Schema to a more flexible Pydantic Model.
+
 ### 0.1.7
 
 Removedhard QC threshold oncontigs > 1kb and GC percent. This are optionnal parameters in the ASU and should be checked in the assembly.
