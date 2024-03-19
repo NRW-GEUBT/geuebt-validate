@@ -12,7 +12,4 @@ Simply modifying the URL vairable should be enough in most cases.
 
 ## Data validation
 
-Data validation is performed through JSON schema validations.
-The schemas used for validation are in the `workflow/schema` directory.
-Validation is perfromed with the [jsonschema](https://python-jsonschema.readthedocs.io/en/latest/#)
-python package and follows the [2020-12](https://json-schema.org/draft/2020-12/release-notes.html) specification.
+Data validation is performed through Pydantic model validations.

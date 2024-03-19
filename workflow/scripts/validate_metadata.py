@@ -13,82 +13,146 @@ except NameError:
 
 
 import json
-import jsonschema
-import numpy as np
+import datetime
 import pandas as pd
+from enum import Enum
+from typing import Optional, Annotated, Any, TypeVar, Union
+from pydantic_core import PydanticCustomError
+from pydantic import (
+    BaseModel,
+    ValidationError,
+    PastDate,
+    BeforeValidator,
+    model_validator,
+    field_validator,
+)
 
 
-VALIDATOR_VERSION = jsonschema.Draft202012Validator
-FORMAT_CHECKER = jsonschema.FormatChecker(['date'])
-UNIQUE_FIELDS = ['isolate_id', 'fasta_name']
-# Only specifying robust types (str or object), specific converters are used
-# for dtypes that might fail
-INPUT_DTYPE = {
-    "isolate_id": str,
-    "sample_id": str,
-    "organism": str,
-    "isolate_name_alt": str,
-    "isolation_org": str,
-    "sequencing_org": str,
-    "extraction_method": str,
-    "library_method": str,
-    "sequencing_instrument": str,
-    "bioinformatics_org": str,
-    "assembly_method": str,
-    # "third_party_flag": str,
-    "third_party_owner": str,
-    "sample_type": str,
-    "fasta_name": str,
-    "fasta_md5": str,
-    "collection_date": str,
-    "collection_municipality": str,
-    "collection_country": str,
-    "collection_cause": str,
-    "collected_by": str,
-    "manufacturer": str,
-    "designation": str,
-    "manufacturer_type": str,
-    "sample_description": str,
-    "lot_number": str,
-    # "sequencing_depth": np.float64,
-    # "ref_coverage": np.float64,
-    # "q30": np.float64
-}
+# These fields must contain unique values:
+UNIQUE_FIELDS = ['isolate_id', 'fasta_name', 'fasta_md5']
 
 
-def boolean_converter(x):
+def coerce_nan_to_None(v: Any) -> Any:
     """
-    handle boolean datatype in pd.read_csv
-
-    Specifically handle cases where missing values or invalid values
-    result in the whole column being unable to convert to boolean dtype
+    Coercion of nan float values created by panda for empty fields to None
+    where nescessary
     """
-    if x in ['True', 'true', 'TRUE', True]:
-        return 'true'
-    elif x in ['False', 'false', 'FALSE', False]:
-        return 'false'
-    else:
-        # If invalid value, let the JSON validation elegantly fail
-        return x
+    if pd.isna(v):
+        return None
+    return v
 
 
-def float_converter(x):
+NanOrNone = Annotated[Optional[TypeVar('T')], BeforeValidator(coerce_nan_to_None)]
+
+
+class OrganismEnum(str, Enum):
     """
-    handle float datatype in pd.read_csv
-
-    Specifically handle cases where invalid values
-    result in the whole column being unable to convert to float dtype
+    Define accepted organisms
     """
-    try:
-        return np.float64(x)
-    except ValueError:
-        # If invalid value, let the JSON validation elegantly fail
-        return pd.NA
+    listeria = 'Listeria monocytogenes'
+    salmonella = 'Salmonella enterica'
+    ecoli = 'Escherichia coli'
+    campy = 'Campylobacter spp.'
 
 
-def validate_record(record, validator):
+class UserEnum(str, Enum):
     """
-    Validate a single JSON record against a valid schema
+    Define accepted users
+    Ideally should come from Database, for future versions
+    """
+    owl = 'OWL'
+    rrw = 'RRW'
+    mel = 'MEL'
+    wfl = 'WFL'
+    rld = 'RLD'
+    otther = 'other'
+
+
+class SampleTypesEnum(str, Enum):
+    """
+    Define accepted sample types
+    """
+    food = "Lebensmittel"
+    feed = "Futtermittel"
+    env = "Umfeld"
+    vet = "Tiergesundheit"
+    human = "Human"
+    other = "unknown"
+
+
+class Metadata(BaseModel, validate_assignment=True):
+    """
+    Implements the GEÜBt Metadata Model
+    Version 2 (2024-03)
+    """
+    isolate_id: str
+    sample_id: str
+    alt_isolate_id: Optional[NanOrNone] = None
+    organism: OrganismEnum
+    isolation_org: UserEnum
+    sequencing_org: UserEnum
+    bioinformatics_org: UserEnum
+    third_party_owner: Optional[NanOrNone] = None
+    extraction_method: Optional[NanOrNone] = None
+    library_kit: Optional[NanOrNone] = None
+    sequencing_kit: Optional[NanOrNone] = None
+    sequencing_instrument: Optional[NanOrNone] = None
+    assembly_method: Optional[NanOrNone] = None
+    sample_type: SampleTypesEnum
+    fasta_name: str
+    fasta_md5: str
+    collection_date: Union[NanOrNone, PastDate] = datetime.date(1970, 1, 1)
+    customer: NanOrNone = "NNNNN"
+    manufacturer: NanOrNone = "unknown"
+    collection_place: NanOrNone = "Unbekannt (99999999)"
+    collection_place_code: NanOrNone = "48267|177667|"
+    description: NanOrNone = "unknown"
+    manufacturer_type: Optional[NanOrNone] = None
+    manufacturer_type_code: Optional[NanOrNone] = None
+    matrix: Optional[NanOrNone] = None
+    matrix_code: Optional[NanOrNone] = None
+    collection_cause: Optional[NanOrNone] = None
+    collection_cause_code: Optional[NanOrNone] = None
+    seq_depth: int
+    ref_coverage: float
+    q30: float
+
+    @field_validator('ref_coverage', 'q30')
+    @classmethod
+    def check_fractions(cls, v: float) -> float:
+        if v < 0 or v > 1:
+            raise ValueError("must be given as a fraction between 0 and 1")
+        return v
+
+    @field_validator('q30')
+    @classmethod
+    def check_q30(cls, v: float) -> float:
+        if v < 0.75:
+            raise ValueError("must be at least 0.75")
+        return v
+
+    @model_validator(mode='after')
+    def check_coverage(self) -> 'Metadata':
+        depth = self.seq_depth
+        organism = self.organism
+        min_coverages = {
+            'Listeria monocytogenes': 20,
+            'Salmonella enterica': 30,
+            'Escherichia coli': 40,
+            'Campylobacter spp.': 20,
+        }
+        if depth < min_coverages[organism] or depth > 200:
+            raise PydanticCustomError(
+                "value_error",
+                f"Value error: 'coverage' for '{organism}' must be between "
+                f"'{min_coverages[organism]}' and 200, got {depth}.",
+            )
+        return self
+
+
+def validate_record(record: dict, model: BaseModel):
+    """
+    Validate a single record against a data model
 
     Each entry of the record is checked against the schema. If errors are
     encountered, all o them are formattred in a user-friendly way.
@@ -108,55 +172,44 @@ def validate_record(record, validator):
         a tuple (STATUS, Errors) where status is either of PASS or FAIL and
         Errors us a list of all validation errors encountered.
     """
-    # Get all validations errors and format
-    errors = list(validator.iter_errors(record))
     messages = []
-    if len(errors) == 0:
+    try:
+        m = model.model_validate(record)
         status = "PASS"
-    else:
+    except ValidationError as e:
         status = "FAIL"
-        for error in errors:
-            messages.append(
-                f"Invalid value in field {error.schema_path[-2]}. "
-                f"Expected {error.schema_path[-1]}: {error.validator_value}, "
-                f"got {error.instance}"
-            )
-    return status, messages
+        m = {}
+        for error in e.errors():
+            # Make error pretty
+            if len(error['loc']) == 1:
+                msg = f"Invalid value in field '{error['loc'][0]}'. "
+            elif len(error['loc']) > 1:
+                msg = f"Invalid value in field '{error['loc']}'. "
+            else:
+                msg = ''
+            if type(error['input']) is dict:
+                msg += f"{error['msg']}"
+            else:
+                msg += f"'{error['msg']}', got '{error['input']}' instead"
+            messages.append(msg)
+    return status, messages, m
 
 
-def main(schema, metadata, json_path, tsv_path, metadata_json):
-    # load schema as a json object and validate
-    with open(schema, 'r') as f:
-        json_schema = json.load(f)
-    VALIDATOR_VERSION.check_schema(json_schema)
-    validator = VALIDATOR_VERSION(
-        json_schema,
-        format_checker=FORMAT_CHECKER
-    )
-
-    # load metadata as dataframe and create json iterator
+def main(metadata, json_path, tsv_path, metadata_json):
+    # load metadata as dataframe
     metatable = pd.read_csv(
         metadata,
         sep='\t',
         header=0,
-        index_col=False,
-        dtype=INPUT_DTYPE,
-        converters={
-            "third_party_flag": boolean_converter,
-            "sequencing_depth": float_converter,
-            "ref_coverage": float_converter,
-            "q30": float_converter
-        }
+        index_col=False
     )
-    records = json.loads(
-        metatable.to_json(orient='records')
-    )
+    records = metatable.to_dict(orient='records')
 
-    # Validate each record and register validation errors
+    # Validating each entry indpendantly to salvage the good ones in case of fails
     valid_records = {}
     validation_status = {}
     for record in records:
-        status, errors = validate_record(record, validator)
+        status, errors, parsed = validate_record(record, Metadata)
         validation_status.update(
             {
                 record['isolate_id']: {
@@ -165,9 +218,9 @@ def main(schema, metadata, json_path, tsv_path, metadata_json):
                 }
             }
         )
-        # save valid records
+        # save parsed records
         if status == 'PASS':
-            valid_records[record['isolate_id']] = record
+            valid_records[record['isolate_id']] = parsed.model_dump()
 
     # export valid metadata to Json file
     with open(metadata_json, 'w') as f:
@@ -182,7 +235,7 @@ def main(schema, metadata, json_path, tsv_path, metadata_json):
             for id, val in zip(isolate_ids, values):
                 validation_status[id]["STATUS"] = "FAIL"
                 validation_status[id]["MESSAGES"].append(
-                    f"Duplicated value in field {key}: {val}"
+                    f"Duplicated value in field '{key}': {val}"
                 )
 
     # Export JSON
@@ -210,7 +263,6 @@ def main(schema, metadata, json_path, tsv_path, metadata_json):
 
 if __name__ == '__main__':
     main(
-        snakemake.params['schema'],
         snakemake.params['metadata'],
         snakemake.output['json'],
         snakemake.output['tsv'],

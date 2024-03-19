@@ -16,21 +16,15 @@ def test_validate_metadata():
         data_path = PurePosixPath(".tests/unit/validate_metadata/data")
         expected_path = PurePosixPath(".tests/unit/validate_metadata/expected")
         script_path = PurePosixPath(".tests/../workflow/scripts/validate_metadata.py")
-        schema_path = PurePosixPath(".tests/../workflow/schema/metadata.schema.json")
 
         # Copy data to the temporary workdir.
         shutil.copytree(data_path, workdir)
-        shutil.copy(schema_path, workdir)
         shutil.copy(script_path, workdir)
-
-        # dbg
-        print("metadata_status.json", file=sys.stderr)
 
         # run function
         sys.path.insert(0, workdir)
         from validate_metadata import main
         main(
-            schema=os.path.join(workdir, 'metadata.schema.json'),
             metadata=os.path.join(workdir, 'metadata_table_test.tsv'),
             json_path=os.path.join(workdir, 'result.json'),
             tsv_path=os.path.join(workdir, 'result.tsv'),

@@ -13,7 +13,7 @@ rule validate_metadata:
     message:
         "[Input validation] validating metadata"
     conda:
-        "../envs/jsonschema.yaml"
+        "../envs/pydantic.yaml"
     log:
         "logs/validate_metadata.log",
     script:
