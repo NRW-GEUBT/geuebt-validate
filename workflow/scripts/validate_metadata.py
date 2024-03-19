@@ -144,7 +144,7 @@ class Metadata(BaseModel, validate_assignment=True):
         if depth < min_coverages[organism] or depth > 200:
             raise PydanticCustomError(
                 "value_error",
-                f"Value error: 'coverage' for '{organism}' must be between 
+                f"Value error: 'coverage' for '{organism}' must be between "
                 f"'{min_coverages[organism]}' and 200, got {depth}.",
             )
         return self
