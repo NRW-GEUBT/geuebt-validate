@@ -34,7 +34,8 @@ UNIQUE_FIELDS = ['isolate_id', 'fasta_name', 'fasta_md5']
 
 def coerce_nan_to_None(v: Any) -> Any:
     """
-    Coercion of nan float values create by panda for empty fields to None where nescessary
+    Coercion of nan float values created by panda for empty fields to None 
+    where nescessary
     """
     if pd.isna(v):
         return None
@@ -143,13 +144,12 @@ class Metadata(BaseModel, validate_assignment=True):
         if depth < min_coverages[organism] or depth > 200:
             raise PydanticCustomError(
                 "value_error",
-                "Value error, 'coverage' for '{organism}' must be between '{min_cov}' and 200",
-                dict(organism=organism, min_cov=min_coverages[organism])
+                f"Value error: 'coverage' for '{organism}' must be between '{min_coverages[organism]}' and 200, got {depth}.",
             )
         return self
 
 
-def validate_record(record: dict, model: Metadata):
+def validate_record(record: dict, model: BaseModel):
     """
     Validate a single record against a data model
 
@@ -219,7 +219,7 @@ def main(metadata, json_path, tsv_path, metadata_json):
         )
         # save parsed records
         if status == 'PASS':
-            valid_records[record['isolate_id']] = parsed.dict()
+            valid_records[record['isolate_id']] = parsed.model_dump()
 
     # export valid metadata to Json file
     with open(metadata_json, 'w') as f:

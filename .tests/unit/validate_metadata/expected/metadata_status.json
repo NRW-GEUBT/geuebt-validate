@@ -14,7 +14,7 @@
     "2022-00000003-02": {
         "STATUS": "FAIL",
         "MESSAGES": [
-            "Value error, 'coverage' for 'Escherichia coli' must be between '40' and 200"
+            "Value error: 'coverage' for 'Escherichia coli' must be between '40' and 200, got 36."
         ]
     },
     "2022-00000003-03": {
@@ -84,31 +84,31 @@
     "2022-00000006-01": {
         "STATUS": "FAIL",
         "MESSAGES": [
-            "Value error, 'coverage' for 'Salmonella enterica' must be between '30' and 200"
+            "Value error: 'coverage' for 'Salmonella enterica' must be between '30' and 200, got 29."
         ]
     },
     "2022-00000006-02": {
         "STATUS": "FAIL",
         "MESSAGES": [
-            "Value error, 'coverage' for 'Escherichia coli' must be between '40' and 200"
+            "Value error: 'coverage' for 'Escherichia coli' must be between '40' and 200, got 39."
         ]
     },
     "2022-00000006-03": {
         "STATUS": "FAIL",
         "MESSAGES": [
-            "Value error, 'coverage' for 'Campylobacter spp.' must be between '20' and 200"
+            "Value error: 'coverage' for 'Campylobacter spp.' must be between '20' and 200, got 19."
         ]
     },
     "2022-00000006-04": {
         "STATUS": "FAIL",
         "MESSAGES": [
-            "Value error, 'coverage' for 'Listeria monocytogenes' must be between '20' and 200"
+            "Value error: 'coverage' for 'Listeria monocytogenes' must be between '20' and 200, got 19."
         ]
     },
     "2022-00000006-05": {
         "STATUS": "FAIL",
         "MESSAGES": [
-            "Value error, 'coverage' for 'Listeria monocytogenes' must be between '20' and 200"
+            "Value error: 'coverage' for 'Listeria monocytogenes' must be between '20' and 200, got 205."
         ]
     },
     "2022-00000007": {
@@ -120,9 +120,13 @@
     "2022-00000008-01": {
         "STATUS": "FAIL",
         "MESSAGES": [
-            "Invalid value in field 'q30'. 'Value error, must be at least 0.75', got '0.65' instead",
-            "Duplicated value in field 'isolate_id': 2022-00000008-01",
-            "Duplicated value in field 'isolate_id': 2022-00000008-01"
+            "Invalid value in field 'q30'. 'Value error, must be given as a fraction between 0 and 1', got '95.0' instead"
+        ]
+    },
+    "2022-00000008-02": {
+        "STATUS": "FAIL",
+        "MESSAGES": [
+            "Invalid value in field 'q30'. 'Value error, must be at least 0.75', got '0.65' instead"
         ]
     },
     "2022-0000009": {

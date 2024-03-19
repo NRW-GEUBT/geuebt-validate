@@ -24,6 +24,6 @@ isolate_id	sample_id	alt_isolate_id	organism	isolation_org	sequencing_org	bioinf
 2022-00000006-05	2022-00000006		Listeria monocytogenes	RRW	RRW	RRW							Lebensmittel	fasta06e.fa	456dc635c6196a34e8a592f97be498d7	2022-03-11	Krefeld	HappyWurst	Krefeld	9999|12568|	Mettenden								205	0.99	0.95
 2022-00000007	2022-00000007		Listeria monocytogenes	RRW	RRW	RRW							Lebensmittel	fasta07.fa	456dc634c6166a34e8a592f97be498d7	2022-03-11	Krefeld	HappyWurst	Krefeld	9999|12568|	Mettenden								36	99	0.95
 2022-00000008-01	2022-00000007		Listeria monocytogenes	RRW	RRW	RRW							Lebensmittel	fasta08a.fa	456dc638c6196a34e8a592f97be498d7	2022-03-11	Krefeld	HappyWurst	Krefeld	9999|12568|	Mettenden								36	0.99	95
-2022-00000008-01	2022-00000007		Listeria monocytogenes	RRW	RRW	RRW							Lebensmittel	fasta08b.fa	416dc634c6196a34e8a592f97be498d7	2022-03-11	Krefeld	HappyWurst	Krefeld	9999|12568|	Mettenden								36	0.99	0.65
+2022-00000008-02	2022-00000007		Listeria monocytogenes	RRW	RRW	RRW							Lebensmittel	fasta08b.fa	416dc634c6196a34e8a592f97be498d7	2022-03-11	Krefeld	HappyWurst	Krefeld	9999|12568|	Mettenden								36	0.99	0.65
 2022-0000009	2022-00000009		Listeria monocytogenes	RRW	RRW	RRW							Lebensmittel	fasta09.fa	426dc634c6196a34e8a592f97be498d7	2022-03-11	Krefeld	HappyWurst	Krefeld	9999|12568|	Mettenden								36	0.99	0.95
 2022-0000009	2022-00000009		Listeria monocytogenes	RRW	RRW	RRW							Lebensmittel	fasta09.fa	426dc634c6196a34e8a592f97be498d7	2022-03-11	Krefeld	HappyWurst	Krefeld	9999|12568|	Mettenden								36	0.99	0.95
