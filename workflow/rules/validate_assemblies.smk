@@ -147,12 +147,10 @@ rule validate_assembly_qc:
     output:
         json="validation/assemblies_status.json",
         tsv="validation/assemblies_status.tsv",
-    params:
-        schema=f"{workflow.basedir}/schema/assembly_qc.schema.json",
     message:
         "[Assembly quality] Validating assemblies quality"
     conda:
-        "../envs/pandas.yaml"
+        "../envs/pydantic.yaml"
     log:
         "logs/validate_assembly_qc.log",
     script:
