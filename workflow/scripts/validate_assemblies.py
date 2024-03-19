@@ -75,7 +75,8 @@ class AssemblyQC(BaseModel):
         if assembly < qcdict[expect][0] or assembly > qcdict[expect][1]:
             raise PydanticCustomError(
                 "value_error",
-                f"Value error: 'assembly_size' for '{expect}' must be between {qcdict[expect][0]} and {qcdict[expect][1]}, got: {assembly}",
+                f"Value error: 'assembly_size' for '{expect}' must be between "
+                f"{qcdict[expect][0]} and {qcdict[expect][1]}, got: {assembly}",
             )
         return self
 
@@ -136,7 +137,7 @@ class AssemblyQC(BaseModel):
         genus = self.majority_genus
         qcdict = {
             'Listeria monocytogenes': ["Listeria"],
-            'Salmonella enterica':["Salmonella"],
+            'Salmonella enterica': ["Salmonella"],
             'Escherichia coli': ["Escherichia", "Shigella"],
             'Campylobacter spp.': ["Campylobacter"],
         }
