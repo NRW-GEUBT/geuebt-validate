@@ -8,7 +8,6 @@ rule validate_metadata:
         tsv="validation/metadata_status.tsv",
         metadata_json="validation/metadata.json",
     params:
-        schema=f"{workflow.basedir}/schema/metadata.schema.json",
         metadata=config["metadata"],
     message:
         "[Input validation] validating metadata"
