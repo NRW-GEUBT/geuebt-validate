@@ -26,7 +26,7 @@
         "manufacturer_type": "unknown",
         "sample_description": "unkown",
         "lot_number": null,
-        "sequencing_depth": 45.6,
+        "seq_depth": 45.6,
         "ref_coverage": 0.99,
         "q30": 0.9
     }
