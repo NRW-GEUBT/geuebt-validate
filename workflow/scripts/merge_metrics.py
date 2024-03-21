@@ -23,7 +23,7 @@ def main(quast, kraken, metadata, jsonpath, busco, isolate_id):
         meta = json.load(f)
     res["isolate_id"] = str(meta[isolate_id]["isolate_id"])
     res["expect_species"] = str(meta[isolate_id]["organism"])
-    res["sequencing_depth"] = float(meta[isolate_id]["sequencing_depth"])
+    res["seq_depth"] = float(meta[isolate_id]["seq_depth"])
     res["ref_coverage"] = float(meta[isolate_id]["ref_coverage"])
     res["q30"] = float(meta[isolate_id]["q30"])
     # QUAST - as TSV
