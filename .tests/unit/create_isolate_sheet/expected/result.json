@@ -2,8 +2,7 @@
     "isolate_id": "2022-0232977-01",
     "sample_id": "2022-0232977",
     "organism": "Salmonella enterica",
-    "isolate_name_alt": null,
-    "third_party_flag": "true",
+    "alt_isolate_id": null,
     "third_party_owner": "BfR",
     "sample_type": "unknown",
     "fasta_name": "2022-0232977-01.fa",
@@ -14,7 +13,7 @@
     "sequencing": {
         "org_name": "RRW",
         "extraction_method": null,
-        "library_method": null,
+        "library_kit": null,
         "sequencing_instrument": null
     },
     "bioinformatics": {
@@ -23,14 +22,16 @@
     },
     "epidata": {
         "collection_date": "2023-03-28",
-        "municipality": "unknown",
-        "country": "DE",
+        "collection_place": "Unbekannt (99999999)",
+        "collection_place_code":  "48267|177667|",
         "cause": "Proficiency Test",
-        "collected_by": "unknown",
-        "manufacturer": null,
-        "designation": "unknown",
+        "customer": "NNNNN",
+        "manufacturer": "unknown",
+        "description": "unknown",
         "manufacturer_type": "unknown",
-        "sample_description": "unkown",
+        "manufacturer_type_code": "unknown",
+        "matrix": null,
+        "matrix_code": null,
         "lot_number": null
     },
     "mlst": {
@@ -47,7 +48,7 @@
         }
     },
     "qc_metrics": {
-        "sequencing_depth": 45.6,
+        "seq_depth": 45.6,
         "ref_coverage": 0.99,
         "q30": 0.9,
         "N50": 284333,

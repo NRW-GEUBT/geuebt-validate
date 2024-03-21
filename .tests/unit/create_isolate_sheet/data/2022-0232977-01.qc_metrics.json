@@ -1,7 +1,7 @@
 {
     "isolate_id": "2022-0232977-01",
     "expect_species": "Salmonella enterica",
-    "sequencing_depth": 45.6,
+    "seq_depth": 45.6,
     "ref_coverage": 0.99,
     "q30": 0.9,
     "N50": 284333,

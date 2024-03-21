@@ -34,7 +34,7 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
     dictout['sequencing'] = {
         "org_name": dictout.pop('sequencing_org'),
         "extraction_method": dictout.pop('extraction_method'),
-        "library_method": dictout.pop('library_method'),
+        "library_kit": dictout.pop('library_kit'),
         "sequencing_instrument": dictout.pop('sequencing_instrument'),
     }
     dictout['bioinformatics'] = {
@@ -43,14 +43,16 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
     }
     dictout['epidata'] = {
         "collection_date": dictout.pop('collection_date'),
-        "municipality": dictout.pop('collection_municipality'),
-        "country": dictout.pop('collection_country'),
+        "collection_place": dictout.pop('collection_place'),
+        "collection_place_code": dictout.pop('collection_place_code'),
         "cause": dictout.pop('collection_cause'),
-        "collected_by": dictout.pop('collected_by'),
+        "customer": dictout.pop('customer'),
         "manufacturer": dictout.pop('manufacturer'),
-        "designation": dictout.pop('designation'),
+        "description": dictout.pop('description'),
         "manufacturer_type": dictout.pop('manufacturer_type'),
-        "sample_description": dictout.pop('sample_description'),
+        "manufacturer_type_code": dictout.pop('manufacturer_type_code'),
+        "matrix": dictout.pop('matrix'),
+        "matrix_code": dictout.pop('matrix_code'),
         "lot_number": dictout.pop('lot_number'),
     }
     # Add MLST infos
@@ -60,7 +62,7 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
     # Add QC metrics
     dictout['qc_metrics'] = {
        key: assembly_dict[key] for key in [
-            "sequencing_depth",
+            "seq_depth",
             "ref_coverage",
             "q30",
             "N50",
@@ -77,7 +79,7 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
         ]
     }
     # cleaning duplicated keys at top level
-    for key in ["sequencing_depth", "ref_coverage", "q30"]:
+    for key in ["seq_depth", "ref_coverage", "q30"]:
         del dictout[key]
     # export to json
     with open(json_path, 'w') as fp:

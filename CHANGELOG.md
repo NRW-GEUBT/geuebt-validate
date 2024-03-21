@@ -1,3 +1,7 @@
+### 0.2.4
+
+Fix isoalte sheet creation with new metadata definition
+
 ### 0.2.3
 
 Quickfix asssembly qc merging
