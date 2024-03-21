@@ -113,7 +113,7 @@ class Metadata(BaseModel, validate_assignment=True):
     matrix_code: Optional[NanOrNone] = None
     collection_cause: Optional[NanOrNone] = None
     collection_cause_code: Optional[NanOrNone] = None
-    seq_depth: int
+    seq_depth: float
     ref_coverage: float
     q30: float
 

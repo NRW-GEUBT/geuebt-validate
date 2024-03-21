@@ -1,3 +1,7 @@
+### 0.2.2
+
+Quickfix invalid field type seq_depth from int to float
+
 ### 0.2.1
 
 Remove deprecated param
