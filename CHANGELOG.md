@@ -1,3 +1,7 @@
+### 0.2.1
+
+Remove deprecated param
+
 ### 0.2.0
 
 - Implements GEÜBT Metadata v2 (03-2024)
