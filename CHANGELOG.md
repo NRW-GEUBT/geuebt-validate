@@ -1,3 +1,7 @@
+### 0.2.5
+
+Fix missing entries in isolate sheet
+
 ### 0.2.4
 
 Fix isoalte sheet creation with new metadata definition
