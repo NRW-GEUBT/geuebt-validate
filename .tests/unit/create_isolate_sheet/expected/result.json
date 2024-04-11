@@ -14,6 +14,7 @@
         "org_name": "RRW",
         "extraction_method": null,
         "library_kit": null,
+        "sequencing_kit": null,
         "sequencing_instrument": null
     },
     "bioinformatics": {
@@ -24,7 +25,8 @@
         "collection_date": "2023-03-28",
         "collection_place": "Unbekannt (99999999)",
         "collection_place_code":  "48267|177667|",
-        "cause": "Proficiency Test",
+        "collection_cause": "Proficiency Test",
+        "collection_cause_code": null,
         "customer": "NNNNN",
         "manufacturer": "unknown",
         "description": "unknown",

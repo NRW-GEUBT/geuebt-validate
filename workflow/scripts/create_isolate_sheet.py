@@ -35,6 +35,7 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
         "org_name": dictout.pop('sequencing_org'),
         "extraction_method": dictout.pop('extraction_method'),
         "library_kit": dictout.pop('library_kit'),
+        "sequencing_kit": dictout.pop('sequencing_kit'),
         "sequencing_instrument": dictout.pop('sequencing_instrument'),
     }
     dictout['bioinformatics'] = {
@@ -45,7 +46,8 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
         "collection_date": dictout.pop('collection_date'),
         "collection_place": dictout.pop('collection_place'),
         "collection_place_code": dictout.pop('collection_place_code'),
-        "cause": dictout.pop('collection_cause'),
+        "collection_cause": dictout.pop('collection_cause'),
+        "collection_cause_code": dictout.pop('collection_cause_code'),
         "customer": dictout.pop('customer'),
         "manufacturer": dictout.pop('manufacturer'),
         "description": dictout.pop('description'),
