@@ -48,7 +48,7 @@
     "2022-0232977-10": {
         "STATUS": "FAIL",
         "MESSAGES": [
-            "Value error: 'fraction_majority_genus' for 'Salmonella enterica' must be at least 0.95, got: 0.92"
+            "Value error: 'fraction_majority_genus' for 'Salmonella enterica' must be at least 0.9, got: 0.82"
         ]
     },
     "2022-0232978-01": {

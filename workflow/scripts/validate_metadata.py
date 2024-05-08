@@ -16,6 +16,7 @@ import json
 import datetime
 import pandas as pd
 from enum import Enum
+import datetime
 from typing import Optional, Annotated, Any, TypeVar, Union
 from pydantic_core import PydanticCustomError
 from pydantic import (
@@ -101,7 +102,7 @@ class Metadata(BaseModel, validate_assignment=True):
     sample_type: SampleTypesEnum
     fasta_name: str
     fasta_md5: str
-    collection_date: Union[NanOrNone, PastDate] = datetime.date(1970, 1, 1)
+    collection_date: Union[NanOrNone, PastDate] = datetime.date(1970, 1, 1)  # not working, coercing below
     customer: NanOrNone = "NNNNN"
     manufacturer: NanOrNone = "unknown"
     collection_place: NanOrNone = "Unbekannt (99999999)"
@@ -131,6 +132,17 @@ class Metadata(BaseModel, validate_assignment=True):
         if v < 0.75:
             raise ValueError("must be at least 0.75")
         return v
+
+    @field_validator('collection_date', mode='after')
+    @classmethod
+    def coerce_date_to_iso(cls, d: datetime) -> str:
+        if not d:
+            d="1970-01-01"
+        try:
+            d = datetime.date.fromisoformat(d)
+        except ValueError:
+            d = datetime.datetime.strptime(d, "%d.%m.%Y")
+        return datetime.date.strftime(d, "%Y-%m-%d")
 
     @model_validator(mode='after')
     def check_coverage(self) -> 'Metadata':
