@@ -1,3 +1,8 @@
+### 0.2.6
+
+Add support for 25.11.2024 date format form excel
+Relaxed the fraction_majority_genus cutoff to 0.9 for all species to accomodate isolate with many plasmids
+
 ### 0.2.5
 
 Fix missing entries in isolate sheet

@@ -119,8 +119,8 @@ class AssemblyQC(BaseModel):
         expect = self.expect_species
         frac = self.fraction_majority_genus
         qcdict = {
-            'Listeria monocytogenes': 0.95,
-            'Salmonella enterica': 0.95,
+            'Listeria monocytogenes': 0.9,
+            'Salmonella enterica': 0.9,
             'Escherichia coli': 0.9,
             'Campylobacter spp.': 0.9,
         }

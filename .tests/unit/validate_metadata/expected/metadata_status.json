@@ -139,5 +139,9 @@
             "Duplicated value in field 'fasta_md5': 426dc634c6196a34e8a592f97be498d7",
             "Duplicated value in field 'fasta_md5': 426dc634c6196a34e8a592f97be498d7"
         ]
+    },
+    "2022-00000010": {
+        "STATUS": "PASS",
+        "MESSAGES": []
     }
 }
