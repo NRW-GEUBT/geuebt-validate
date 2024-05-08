@@ -16,7 +16,6 @@ import json
 import datetime
 import pandas as pd
 from enum import Enum
-import datetime
 from typing import Optional, Annotated, Any, TypeVar, Union
 from pydantic_core import PydanticCustomError
 from pydantic import (
@@ -137,7 +136,7 @@ class Metadata(BaseModel, validate_assignment=True):
     @classmethod
     def coerce_date_to_iso(cls, d: datetime) -> str:
         if not d:
-            d="1970-01-01"
+            d = "1970-01-01"
         try:
             d = datetime.date.fromisoformat(d)
         except ValueError:
