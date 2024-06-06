@@ -207,7 +207,7 @@ def validate_record(record: dict, model: BaseModel):
     return status, messages, m
 
 
-def main(metadata, json_path, tsv_path, metadata_json):
+def main(metadata, json_path, tsv_path, metadata_json, data_model=Metadata):
     # load metadata as dataframe
     metatable = pd.read_csv(
         metadata,
@@ -221,7 +221,7 @@ def main(metadata, json_path, tsv_path, metadata_json):
     valid_records = {}
     validation_status = {}
     for record in records:
-        status, errors, parsed = validate_record(record, Metadata)
+        status, errors, parsed = validate_record(record, data_model)
         validation_status.update(
             {
                 record['isolate_id']: {
@@ -240,7 +240,10 @@ def main(metadata, json_path, tsv_path, metadata_json):
 
     # Check for uniqueness where required
     for key in UNIQUE_FIELDS:
-        dup = metatable.duplicated(key, keep=False)
+        try:
+            dup = metatable.duplicated(key, keep=False)
+        except KeyError:
+            pass
         if sum(dup) != 0:
             isolate_ids = metatable.loc[dup]['isolate_id'].to_list()
             values = metatable.loc[dup][key].to_list()
