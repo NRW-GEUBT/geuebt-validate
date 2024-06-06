@@ -1,3 +1,7 @@
+### 0.2.7
+
+Allows to bypass Modelchoice and provide another validation model when calling validate_metata.main() directly (for internal use only)
+
 ### 0.2.6
 
 Add support for 25.11.2024 date format form excel
