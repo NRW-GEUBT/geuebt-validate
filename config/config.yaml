@@ -3,6 +3,11 @@
 # See the documentation for more informations
 # ------------------------------------------------------------------------------
 
+# Database
+# --------
+
+mongo_uri: "http://127.0.0.1:8000/API_test"
+
 # Input and Output paths
 # ----------------------
 
@@ -16,6 +21,8 @@ fasta_dir: /path/to/dir
 # Max number of threads assigned to single jobs
 max_threads_per_job: 1
 
+# Clean up workdir on success?
+ephemeral: False
 
 # Databases
 # ---------

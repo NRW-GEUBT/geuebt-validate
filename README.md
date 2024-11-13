@@ -4,4 +4,9 @@ Data validation module of the Geübt application.
 
 ## Usage
 
-The documentation for this workflow is hosted on our [homepage](https://nrw-geubt.github.io/geuebt-validate/).
+Test with default snakemake config.
+Needs a mongoDB and API instance running.
+
+Meant to be deployed through geuebt-core.
+
+For data model and validation, see API doc.

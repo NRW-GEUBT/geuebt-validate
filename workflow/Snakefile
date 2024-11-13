@@ -28,9 +28,6 @@ include: "rules/common.smk"
 
 rule all:
     input:
-        "validation/metadata_status.json",
-        "validation/checksum_status.json",
-        "validation/assemblies_status.json",
         "staging/validation_status.json",
         "staging/isolates_datasheet.json",
 
@@ -66,6 +63,10 @@ onsuccess:
     print("\nWorkflow finished, no error")
     with open(pipe_log, "a") as f:
         f.write(f"[{get_local_time()}]: Pipeline succesfully finished\n")
+    # cleanup workdir
+    if config["ephemeral"]:
+        print("Cleaning up workdir, more space for you!")
+        [shutil.rmtree(dir) for dir in next(os.walk('.'))[1] if not dir in ['validation', 'isolate_sheets', 'staging', 'logs']]
 
 
 onerror:

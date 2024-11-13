@@ -34,7 +34,6 @@ def main(quast, kraken, metadata, jsonpath, busco, isolate_id):
     res["assembly_size"] = int(quast["Total length"].values[0])
     res["GC_perc"] = float(quast["GC (%)"].values[0])
     # BUSCO
-    print(busco)
     with open(busco, "r") as f:
         busco = json.load(f)
     res["orthologs_found"] = float(busco["results"]["Complete"])

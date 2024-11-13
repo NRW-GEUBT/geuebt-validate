@@ -18,52 +18,58 @@ import json
 def main(mlst, metadata, assembly_qc, isolate_id, json_path):
     # load jsons
     with open(metadata, 'r') as fp:
-        meta_dict = json.load(fp)
+        meta_dict = json.load(fp)[isolate_id]
     with open(assembly_qc, 'r') as fp:
         assembly_dict = json.load(fp)
     with open(mlst, 'r') as fp:
         mlst_dict = json.load(fp)[0]  # mlst res as list of dict
     # get relevant entries from metadata
-    dictout = meta_dict[isolate_id]
-    # NB: fastas are renamed to match isolated_id
-    dictout["fasta_name"] = f"{isolate_id}.fa"
-    # reformat metadata
-    dictout['isolation'] = {
-        'org_name': dictout.pop('isolation_org'),
+    dictout = {key: meta_dict.get(key, None) for key in [
+        "isolate_id",
+        "sample_id",
+        "alt_isolate_id",
+        "organism",
+        "third_party_owner",
+        "sample_type",
+        "fasta_name",
+        "fasta_md5",
+    ]}
+
+    dictout["mlst"] ={
+         key: mlst_dict.get(key, None) for key in ['sequence_type', 'scheme', 'alleles']
     }
-    dictout['sequencing'] = {
-        "org_name": dictout.pop('sequencing_org'),
-        "extraction_method": dictout.pop('extraction_method'),
-        "library_kit": dictout.pop('library_kit'),
-        "sequencing_kit": dictout.pop('sequencing_kit'),
-        "sequencing_instrument": dictout.pop('sequencing_instrument'),
+
+    dictout["sample_info"] = {
+        key: meta_dict.get(key, None) for key in [
+            "isolation_org",
+            "sequencing_org",
+            "bioinformatics_org",
+            "extraction_method",
+            "library_kit",
+            "sequencing_kit",
+            "sequencing_instrument",
+            "assembly_method",
+        ]
     }
-    dictout['bioinformatics'] = {
-        "org_name": dictout.pop('bioinformatics_org'),
-        "assembly_method": dictout.pop('assembly_method'),
+
+    dictout["epidata"] = {
+        key: meta_dict.get(key, None) for key in [
+            "collection_date",
+            "customer",
+            "manufacturer",
+            "collection_place",
+            "description",
+            "manufacturer_type",
+            "manufacturer_type_code",
+            "matrix",
+            "matrix_code",
+            "collection_cause",
+            "collection_cause_code",
+            "lot_number",
+        ]
     }
-    dictout['epidata'] = {
-        "collection_date": dictout.pop('collection_date'),
-        "collection_place": dictout.pop('collection_place'),
-        "collection_place_code": dictout.pop('collection_place_code'),
-        "collection_cause": dictout.pop('collection_cause'),
-        "collection_cause_code": dictout.pop('collection_cause_code'),
-        "customer": dictout.pop('customer'),
-        "manufacturer": dictout.pop('manufacturer'),
-        "description": dictout.pop('description'),
-        "manufacturer_type": dictout.pop('manufacturer_type'),
-        "manufacturer_type_code": dictout.pop('manufacturer_type_code'),
-        "matrix": dictout.pop('matrix'),
-        "matrix_code": dictout.pop('matrix_code'),
-        "lot_number": dictout.pop('lot_number'),
-    }
-    # Add MLST infos
-    dictout['mlst'] = {
-        key: mlst_dict[key] for key in ['sequence_type', 'scheme', 'alleles']
-    }
-    # Add QC metrics
-    dictout['qc_metrics'] = {
-       key: assembly_dict[key] for key in [
+    dictout["qc_metrics"] = {
+        key: assembly_dict[key] for key in [
             "seq_depth",
             "ref_coverage",
             "q30",
@@ -80,9 +86,10 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
             "fraction_majority_species",
         ]
     }
-    # cleaning duplicated keys at top level
-    for key in ["seq_depth", "ref_coverage", "q30"]:
-        del dictout[key]
+
+    # NB: fastas are renamed to match isolated_id
+    dictout["fasta_name"] = f"{isolate_id}.fa"
+
     # export to json
     with open(json_path, 'w') as fp:
         json.dump(dictout, fp, indent=4)

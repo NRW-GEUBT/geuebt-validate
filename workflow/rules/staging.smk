@@ -1,90 +1,29 @@
-# Assemblies are defined by checkpoint stage_fastas
-# wildcard : qcpass_id
-# For all passing samples, create a Json isolate sheet
-# For all samples create an analysis report (json + tsv)
+# Gather all isolates sheets and sequences
+# Post isolate_sheet and check status
+# if response 422 -> parse error message andwrite to qc sheet
+# if response 200 -> Pass
+# wirte to QC sheet and post sequence
+# copy passing sequences and isolate sheets to staging area to be passed on to CORE
 
 
-checkpoint stage_fastas:
+rule post_data:
     input:
-        qc_pass="validation/assemblies_status.json",
+        isolate_sheets=aggregate_isolate_id,
+        checksum_qc="validation/checksum_status.json",
     output:
-        outdir=directory("staging/fastas"),
+        qc="staging/validation_status.json",
+        isolate_sheet="staging/isolates_datasheet.json",
+        isolate_sheets_dir=directory("staging/isolates_sheets"),
+        fastas=directory("staging/fastas"),
     params:
-        fasta_dir=f"fastas/",
+        fasta_store="fastas",
+        uri=config["mongo_uri"],
     message:
-        "[Staging] Moving assemblies to staging area"
+        "[Staging] Posting samples and sequences to database"
     conda:
         "../envs/pandas.yaml"
     log:
-        "logs/stage_fastas.log",
+        "logs/post_data.log"
     script:
-        "../scripts/stage_fastas.py"
+        "../scripts/post_data.py"
 
-
-rule mlst:
-    input:
-        assembly="fastas/{qcpass_id}.fa",
-    output:
-        json="assembly_qc/mlst/{qcpass_id}.mlst.json",
-    message:
-        "[Staging][{wildcards.qcpass_id}] MLST scanning and sequence type"
-    conda:
-        "../envs/mlst.yaml"
-    log:
-        "logs/mlst_{qcpass_id}.log",
-    shell:
-        """
-        exec 2> {log}
-        mlst -json {output.json} {input.assembly}
-        """
-
-
-rule create_isolate_sheet:
-    input:
-        mlst="assembly_qc/mlst/{qcpass_id}.mlst.json",
-        metadata="validation/metadata.json",
-        assembly_qc="assembly_qc/summaries/{qcpass_id}.json",
-    output:
-        json="staging/isolates_sheets/{qcpass_id}.json",
-    params:
-        isolate_id="{qcpass_id}",
-    message:
-        "[Staging][{wildcards.qcpass_id}] Creating isolate datasheet"
-    conda:
-        "../envs/pandas.yaml"
-    log:
-        "logs/create_isolate_sheet_{qcpass_id}.log",
-    script:
-        "../scripts/create_isolate_sheet.py"
-
-
-rule merge_isolate_sheets:
-    input:
-        qc_pass=aggregate_qcpass,
-    output:
-        json="staging/isolates_datasheet.json",
-    message:
-        "[Staging] Aggreagting isolate datasheets"
-    log:
-        "logs/merge_isolate_sheets.log",
-    conda:
-        "../envs/pandas.yaml"
-    script:
-        "../scripts/merge_isolate_sheets.py"
-
-
-rule report_qc_status:
-    input:
-        metadata="validation/metadata_status.json",
-        checksums="validation/checksum_status.json",
-        assembly_qc="validation/assemblies_status.json",
-    output:
-        json="staging/validation_status.json",
-    message:
-        "[Staging] Creating validation status reports"
-    conda:
-        "../envs/pandas.yaml"
-    log:
-        "logs/report_qc_status.log",
-    script:
-        "../scripts/report_qc_status.py"

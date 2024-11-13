@@ -1,3 +1,7 @@
+### 1.0.0
+
+Rework for integration with Geuebt-API and Metadata V3
+
 ### 0.2.7
 
 Allows to bypass Modelchoice and provide another validation model when calling validate_metata.main() directly (for internal use only)

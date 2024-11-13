@@ -6,18 +6,18 @@
 
 rule assembly_qc_quast:
     input:
-        assembly="fastas/{metapass_id}.fa",
+        assembly="fastas/{isolate_id}.fa",
     output:
-        report="assembly_qc/quast/{metapass_id}/transposed_report.tsv",
-        outdir=directory("assembly_qc/quast/{metapass_id}"),
+        report="assembly_qc/quast/{isolate_id}/transposed_report.tsv",
+        outdir=directory("assembly_qc/quast/{isolate_id}"),
     params:
         min_contig_length=config["min_contig_length"],
     message:
-        "[Assembly quality][{wildcards.metapass_id}] Calculating assembly metrics with QUAST"
+        "[Assembly quality][{wildcards.isolate_id}] Calculating assembly metrics with QUAST"
     conda:
         "../envs/quast.yaml"
     log:
-        "logs/assembly_qc_quast_{metapass_id}.log",
+        "logs/assembly_qc_quast_{isolate_id}.log",
     threads: config["max_threads_per_job"]
     shell:
         """
@@ -31,22 +31,22 @@ rule assembly_qc_quast:
 
 rule assembly_qc_busco:
     input:
-        assembly="fastas/{metapass_id}.fa",
+        assembly="fastas/{isolate_id}.fa",
     output:
         # Naming of outputs is dependent on the database name 
         # using a touch flag to ensure this rule is executed before
         # trying to run rule merge_metrics and specifying JSON output 
         # there with input funciton
-        flag=touch("assembly_qc/busco/{metapass_id}/done.flag"),
-        outdir=directory("assembly_qc/busco/{metapass_id}"),
+        flag=touch("assembly_qc/busco/{isolate_id}/done.flag"),
+        outdir=directory("assembly_qc/busco/{isolate_id}"),
     params:
         busco_db=config["busco_db"],
     message:
-        "[Assembly quality][{wildcards.metapass_id}] Detecting and counting conserved genes with BUSCO"
+        "[Assembly quality][{wildcards.isolate_id}] Detecting and counting conserved genes with BUSCO"
     conda:
         "../envs/busco.yaml"
     log:
-        "logs/assembly_qc_busco_{metapass_id}.log",
+        "logs/assembly_qc_busco_{isolate_id}.log",
     threads: config["max_threads_per_job"]
     shell:
         """
@@ -61,18 +61,18 @@ rule assembly_qc_busco:
 
 rule assembly_qc_kraken2:
     input:
-        assembly="fastas/{metapass_id}.fa",
+        assembly="fastas/{isolate_id}.fa",
     output:
-        report="assembly_qc/kraken2/{metapass_id}.kreport",
-        krout="assembly_qc/kraken2/{metapass_id}.kraken",
+        report="assembly_qc/kraken2/{isolate_id}.kreport",
+        krout="assembly_qc/kraken2/{isolate_id}.kraken",
     params:
         kraken2_db=config["kraken2_db"],
     message:
-        "[Assembly quality][{wildcards.metapass_id}] Taxonomic classification of kmers with KRAKEN2"
+        "[Assembly quality][{wildcards.isolate_id}] Taxonomic classification of kmers with KRAKEN2"
     conda:
         "../envs/kraken2.yaml"
     log:
-        "logs/assembly_qc_kraken2_{metapass_id}.log",
+        "logs/assembly_qc_kraken2_{isolate_id}.log",
     threads: config["max_threads_per_job"]
     shell:
         """
@@ -88,70 +88,76 @@ rule assembly_qc_kraken2:
 
 rule process_kraken:
     input:
-        krout="assembly_qc/kraken2/{metapass_id}.kraken",
+        krout="assembly_qc/kraken2/{isolate_id}.kraken",
     output:
-        json="assembly_qc/kraken2/{metapass_id}.kraken.json",
+        json="assembly_qc/kraken2/{isolate_id}.kraken.json",
     params:
         taxdump=config["taxdump"],
     message:
-        "[Assembly quality][{wildcards.metapass_id}] Calculating taxonomic ditribution of assembly"
+        "[Assembly quality][{wildcards.isolate_id}] Calculating taxonomic ditribution of assembly"
     conda:
         "../envs/taxidtools.yaml"
     log:
-        "logs/process_kraken_{metapass_id}.log",
+        "logs/process_kraken_{isolate_id}.log",
     script:
         "../scripts/process_kraken.py"
 
 
 rule merge_metrics:
     input:
-        buscoflag="assembly_qc/busco/{metapass_id}/done.flag",
-        quast="assembly_qc/quast/{metapass_id}/transposed_report.tsv",
-        kraken="assembly_qc/kraken2/{metapass_id}.kraken.json",
+        buscoflag="assembly_qc/busco/{isolate_id}/done.flag",
+        quast="assembly_qc/quast/{isolate_id}/transposed_report.tsv",
+        kraken="assembly_qc/kraken2/{isolate_id}.kraken.json",
         metadata="validation/metadata.json",
     output:
-        json="assembly_qc/summaries/{metapass_id}.json",
+        json="assembly_qc/summaries/{isolate_id}.json",
     params:
         # Getting name for function in params as there is no output rule for it
         # see rule assembly_qc_busco
         busco=get_busco_out_name,
-        isolate_id="{metapass_id}",
+        isolate_id="{isolate_id}",
     message:
-        "[Assembly quality][{wildcards.metapass_id}] Merging assembly QC metrics"
+        "[Assembly quality][{wildcards.isolate_id}] Merging assembly QC metrics"
     conda:
         "../envs/pandas.yaml"
     log:
-        "logs/merge_metrics_{metapass_id}.log",
+        "logs/merge_metrics_{isolate_id}.log",
     script:
         "../scripts/merge_metrics.py"
 
 
-rule aggregate_metrics:
+rule mlst:
     input:
-        metrics=aggregate_metapass,
+        assembly="fastas/{isolate_id}.fa",
     output:
-        mergedout="assembly_qc/assembly_metrics.json",
+        json="assembly_qc/mlst/{isolate_id}.mlst.json",
     message:
-        "[Assembly quality] Merging assembly QC metrics"
+        "[Staging][{wildcards.isolate_id}] MLST scanning and sequence type"
+    conda:
+        "../envs/mlst.yaml"
+    log:
+        "logs/mlst_{isolate_id}.log",
+    shell:
+        """
+        exec 2> {log}
+        mlst -json {output.json} {input.assembly} > {log}
+        """
+
+
+rule create_isolate_sheet:
+    input:
+        mlst="assembly_qc/mlst/{isolate_id}.mlst.json",
+        metadata="validation/metadata.json",
+        assembly_qc="assembly_qc/summaries/{isolate_id}.json",
+    output:
+        json="isolates_sheets/{isolate_id}.json",
+    params:
+        isolate_id="{isolate_id}",
+    message:
+        "[Staging][{wildcards.isolate_id}] Creating isolate datasheet"
     conda:
         "../envs/pandas.yaml"
     log:
-        "logs/aggregate_metrics.log",
+        "logs/create_isolate_sheet_{isolate_id}.log",
     script:
-        "../scripts/aggregate_metrics.py"
-
-
-rule validate_assembly_qc:
-    input:
-        metrics="assembly_qc/assembly_metrics.json",
-    output:
-        json="validation/assemblies_status.json",
-        tsv="validation/assemblies_status.tsv",
-    message:
-        "[Assembly quality] Validating assemblies quality"
-    conda:
-        "../envs/pydantic.yaml"
-    log:
-        "logs/validate_assembly_qc.log",
-    script:
-        "../scripts/validate_assemblies.py"
+        "../scripts/create_isolate_sheet.py"

@@ -1,33 +1,30 @@
-# Validate user-submitted metadata with schema
+# Convert metadata table to JSON
 # Then validate md5 checksums of fasta files
 
 
-rule validate_metadata:
+rule metadat2json:
     output:
-        json="validation/metadata_status.json",
-        tsv="validation/metadata_status.tsv",
         metadata_json="validation/metadata.json",
     params:
         metadata=config["metadata"],
     message:
-        "[Input validation] validating metadata"
+        "[Input validation] Exporting metadata to JSON"
     conda:
-        "../envs/pydantic.yaml"
+        "../envs/pandas.yaml"
     log:
-        "logs/validate_metadata.log",
+        "logs/metadat2json.log",
     script:
-        "../scripts/validate_metadata.py"
+        "../scripts/metadata2json.py"
 
 
 rule validate_checksum:
     input:
-        metadata_qc="validation/metadata_status.json",
+        metadata="validation/metadata.json",
     output:
         json="validation/checksum_status.json",
         tsv="validation/checksum_status.tsv",
     params:
         fasta_dir=config["fasta_dir"],
-        metadata=config["metadata"],
     message:
         "[Input validation] validating md5 checksums"
     conda:

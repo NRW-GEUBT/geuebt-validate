@@ -43,35 +43,23 @@ def validate_fasta(x, fasta_prefix=None):
         else:
             status = 'FAIL'
             mssg = [
-                f"Fasta file {x['fasta_name']} does not match the specified MD5 hash. "
+                f"VALIDATION ERROR: checksum:"
+                f"Fasta file {x['fasta_name']} does not match the specified MD5 hash."
                 f"Got '{md5hex}', expected '{x['fasta_md5']}'."
             ]
     else:
         md5hex = pd.NA
         status = 'FAIL'
-        mssg = [f"Fasta file {x['fasta_name']} does not exist in the specified path"]
+        mssg = [f"INPUT ERROR: Fasta file {x['fasta_name']} does not exist in the specified path"]
     return pd.Series([md5hex, status, mssg])
 
 
-def main(metadata, metadata_qc, fasta_dir, json_path, tsv_path):
+def main(metadata, fasta_dir, json_path, tsv_path):
     # Get valid entries as list
-    pass_ids = pd.read_json(
-        metadata_qc,
-        orient='index',
-    ).reset_index(
-        names='isolate_id'
-    )
-    pass_ids = pass_ids.loc[
-        pass_ids['STATUS'] == 'PASS'
-    ]['isolate_id'].to_list()
-
-    # Extract fasta paths and md5
-    fastas = pd.read_csv(
+    fastas = pd.read_json(
         metadata,
-        sep='\t',
-        usecols=['isolate_id', 'fasta_name', 'fasta_md5']
-    )
-    fastas = fastas.loc[fastas['isolate_id'].isin(pass_ids)]
+        orient='index',
+    )[['isolate_id', 'fasta_name', 'fasta_md5']]
 
     # Check that file exists and calculate md5
     fastas[['local_md5', 'STATUS', 'MESSAGES']] = fastas.apply(
@@ -98,8 +86,7 @@ def main(metadata, metadata_qc, fasta_dir, json_path, tsv_path):
 
 if __name__ == '__main__':
     main(
-        snakemake.params['metadata'],
-        snakemake.input['metadata_qc'],
+        snakemake.input['metadata'],
         snakemake.params['fasta_dir'],
         snakemake.output['json'],
         snakemake.output['tsv']
