@@ -78,7 +78,7 @@ def main(
                 qc[isolate_id]["MESSAGES"].append(
                     f"An unexpected error occured while posting sequence record."
                     f"Status: {fasta_response.status_code}."
-                    f"Body: {json.dumps(fasta_response.text)}"
+                    f"Body: {fasta_response.text}"
                 )
 
             # copy to staging

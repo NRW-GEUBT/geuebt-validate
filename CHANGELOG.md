@@ -1,3 +1,7 @@
+### dev
+
+Fix Json response parsing
+
 ### 1.0.0
 
 Rework for integration with Geuebt-API and Metadata V3

@@ -17,7 +17,7 @@ rule post_data:
         fastas=directory("staging/fastas"),
     params:
         fasta_store="fastas",
-        uri=config["mongo_uri"],
+        uri=config["API_url"],
     message:
         "[Staging] Posting samples and sequences to database"
     conda:
