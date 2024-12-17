@@ -2,7 +2,7 @@
 set -Eeu
 
 # URL of the .tar archive
-url="https://busco-data.ezlab.org/v5/data/lineages/bacteria_odb10.2020-03-06.tar.gz"
+url="https://busco-data.ezlab.org/v5/data/lineages/bacteria_odb10.2024-01-08.tar.gz"
 
 # Local directory to save the file
 local_dir="$HOME/.nrw-geuebt/busco/"
@@ -33,6 +33,6 @@ else
   echo "$download_hash" > "$local_dir/$file_name.sha256"
   date --iso-8601='minutes' > "$local_dir/$file_name.timestamp"
   echo "$url" > "$local_dir/$file_name.source"
-  tar -xzvf "$local_dir/$remote_name" -C "$local_dir/" && rm "$local_dir/$remote_name"
+  tar -xzvf "$local_dir$remote_name" -C "$local_dir/" && rm "$local_dir/$remote_name"
 
 fi
