@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 set -Eeu
 
+# This file location
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # URL of the .tar archive
 url="https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz"
 
+VERSION=$(cat "../../VERSION")
+
 # Local directory to save the file
-local_dir="$HOME/.nrw-geuebt/taxdump"
+local_dir="${HOME}/.nrw-geuebt/geuebt-validate-${VERSION}/taxdump/"
 
 # Name of the downloaded file
 file_name="taxdump"

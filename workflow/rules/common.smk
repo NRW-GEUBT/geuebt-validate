@@ -19,7 +19,7 @@ def get_local_time():
 
 # Input functions ------------------------------------
 def get_busco_out_name(wildcards):
-    buscodb = os.path.basename(config["busco_db"])
+    buscodb = "bacteria_odb10"  # Need to be consistent with file downloaded from the busco.post-deploy script
     return f"assembly_qc/busco/{wildcards.isolate_id}/run_{buscodb}/short_summary.json"
 
 

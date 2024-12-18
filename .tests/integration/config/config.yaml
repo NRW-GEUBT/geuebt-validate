@@ -6,7 +6,7 @@
 # Database
 # --------
 
-API_url: "http://127.0.0.1:8000/API_test"
+API_url: "http://127.0.0.1:8010/API_test"
 
 # Input and Output paths
 # ----------------------
@@ -23,13 +23,6 @@ max_threads_per_job: 1
 
 # Clean up workdir on success?
 ephemeral: False
-
-# Databases
-# ---------
-
-kraken2_db: ~/.nrw-geuebt/kraken2/kraken2_standard8
-busco_db: ~/.nrw-geuebt/busco/bacteria_odb10
-taxdump: ~/.nrw-geuebt/taxdump
 
 # Additional parameters
 # ---------------------

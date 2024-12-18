@@ -4,6 +4,9 @@
 # then validate qc values
 
 
+import os
+
+
 rule assembly_qc_quast:
     input:
         assembly="fastas/{isolate_id}.fa",
@@ -40,7 +43,7 @@ rule assembly_qc_busco:
         flag=touch("assembly_qc/busco/{isolate_id}/done.flag"),
         outdir=directory("assembly_qc/busco/{isolate_id}"),
     params:
-        busco_db=config["busco_db"],
+        busco_db=os.path.expanduser(f"~/.nrw-geuebt/geuebt-validate-{version}/busco/bacteria_odb10"),
     message:
         "[Assembly quality][{wildcards.isolate_id}] Detecting and counting conserved genes with BUSCO"
     conda:
@@ -66,7 +69,7 @@ rule assembly_qc_kraken2:
         report="assembly_qc/kraken2/{isolate_id}.kreport",
         krout="assembly_qc/kraken2/{isolate_id}.kraken",
     params:
-        kraken2_db=config["kraken2_db"],
+        kraken2_db=os.path.expanduser(f"~/.nrw-geuebt/geuebt-validate-{version}/kraken/kraken2_standard8"),
     message:
         "[Assembly quality][{wildcards.isolate_id}] Taxonomic classification of kmers with KRAKEN2"
     conda:
@@ -92,7 +95,7 @@ rule process_kraken:
     output:
         json="assembly_qc/kraken2/{isolate_id}.kraken.json",
     params:
-        taxdump=config["taxdump"],
+        taxdump=os.path.expanduser(f"~/.nrw-geuebt/geuebt-validate-{version}/taxdump/"),
     message:
         "[Assembly quality][{wildcards.isolate_id}] Calculating taxonomic ditribution of assembly"
     conda:
