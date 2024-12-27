@@ -7,7 +7,8 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # URL of the .tar archive
 url="https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz"
 
-VERSION=$(cat "../../VERSION")
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+VERSION=$(cat "$SCRIPT_DIR/../../VERSION")
 
 # Local directory to save the file
 local_dir="${HOME}/.nrw-geuebt/geuebt-validate-${VERSION}/taxdump/"

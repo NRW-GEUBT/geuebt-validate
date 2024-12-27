@@ -5,7 +5,8 @@ set -Eeu
 # If changing this path need to change the db name in `rules/common.smk` !
 url="https://busco-data.ezlab.org/v5/data/lineages/bacteria_odb10.2024-01-08.tar.gz"
 
-VERSION=$(cat "../../VERSION")
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+VERSION=$(cat "$SCRIPT_DIR/../../VERSION")
 
 # Local directory to save the file
 local_dir="${HOME}/.nrw-geuebt/geuebt-validate-${VERSION}/busco/"
