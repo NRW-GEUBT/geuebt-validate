@@ -36,8 +36,8 @@ def main(quast, kraken, metadata, jsonpath, busco, isolate_id):
     # BUSCO
     with open(busco, "r") as f:
         busco = json.load(f)
-    res["orthologs_found"] = float(busco["results"]["Complete"])
-    res["duplicated_orthologs"] = float(busco["results"]["Multi copy"])
+    res["orthologs_found"] = float(busco["results"]["Complete percentage"])
+    res["duplicated_orthologs"] = float(busco["results"]["Multi copy percentage"])
     # Kraken
     with open(kraken, "r") as f:
         kraken = json.load(f)

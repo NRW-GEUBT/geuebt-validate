@@ -47,7 +47,7 @@ def rank_prop(df, rank, n=2):
 def main(kraken, taxdump, json_path):
     # Load taxonomy
     taxdump = os.path.expanduser(taxdump)
-    tax = txd.Taxonomy.from_taxdump(
+    tax = txd.read_taxdump(
         os.path.join(taxdump, "nodes.dmp"),
         os.path.join(taxdump, "rankedlineage.dmp")
     )
