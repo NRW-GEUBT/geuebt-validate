@@ -7,8 +7,6 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # URL of the .tar archive
 url="https://genome-idx.s3.amazonaws.com/kraken/k2_standard_08gb_20230314.tar.gz"
 
-VERSION=$(cat "../../VERSION")
-
 # Local directory to save the file
 local_dir="${CONDA_PREFIX}/kraken/"
 
