@@ -44,12 +44,12 @@ def rank_prop(df, rank, n=2):
     ).head(n)
 
 
-def main(kraken, taxdump, json_path):
+def main(kraken, json_path):
     # Load taxonomy
-    taxdump = os.path.expanduser(taxdump)
+    taxdump = os.environ.get("CONDA_PREFIX")
     tax = txd.read_taxdump(
-        os.path.join(taxdump, "nodes.dmp"),
-        os.path.join(taxdump, "rankedlineage.dmp")
+        os.path.join(taxdump, "taxdump", "nodes.dmp"),
+        os.path.join(taxdump, "taxdump", "rankedlineage.dmp")
     )
     # get at ranks
     krak = pd.read_csv(
@@ -96,6 +96,5 @@ def main(kraken, taxdump, json_path):
 if __name__ == '__main__':
     main(
         snakemake.input['krout'],
-        snakemake.params['taxdump'],
         snakemake.output['json']
     )

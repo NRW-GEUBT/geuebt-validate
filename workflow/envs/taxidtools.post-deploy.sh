@@ -7,7 +7,7 @@ url="https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.tar.gz"
 VERSION=$(cat "../../VERSION")
 
 # Local directory to save the file
-local_dir="${HOME}/.nrw-geuebt/geuebt-validate-${VERSION}/taxdump/"
+local_dir="${CONDA_PREFIX}/taxdump/"
 
 # Name of the downloaded file
 file_name="taxdump"

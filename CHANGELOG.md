@@ -1,5 +1,6 @@
-### dev
+### 1.2.0
 
+Deployement of dependencies in the conda env path
 Fix Json response parsing
 
 ### 1.0.0

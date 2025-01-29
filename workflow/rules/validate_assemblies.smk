@@ -42,8 +42,6 @@ rule assembly_qc_busco:
         # there with input funciton
         flag=touch("assembly_qc/busco/{isolate_id}/done.flag"),
         outdir=directory("assembly_qc/busco/{isolate_id}"),
-    params:
-        busco_db=os.path.expanduser(f"~/.nrw-geuebt/geuebt-validate-{version}/busco/bacteria_odb10"),
     message:
         "[Assembly quality][{wildcards.isolate_id}] Detecting and counting conserved genes with BUSCO"
     conda:
@@ -54,7 +52,7 @@ rule assembly_qc_busco:
     shell:
         """
         busco -f -i {input.assembly} \
-            -l {params.busco_db} \
+            -l "$CONDA_PREFIX/busco/bacteria_odb10" \
             -o {output.outdir} \
             -m genome \
             --offline \
@@ -68,8 +66,6 @@ rule assembly_qc_kraken2:
     output:
         report="assembly_qc/kraken2/{isolate_id}.kreport",
         krout="assembly_qc/kraken2/{isolate_id}.kraken",
-    params:
-        kraken2_db=os.path.expanduser(f"~/.nrw-geuebt/geuebt-validate-{version}/kraken/kraken2_standard8"),
     message:
         "[Assembly quality][{wildcards.isolate_id}] Taxonomic classification of kmers with KRAKEN2"
     conda:
@@ -80,7 +76,7 @@ rule assembly_qc_kraken2:
     shell:
         """
         exec 2> {log}
-        kraken2 --db {params.kraken2_db} \
+        kraken2 --db "$CONDA_PREFIX/kraken/kraken2_standard8" \
             --threads {threads} \
             --output {output.krout} \
             --report {output.report} \
@@ -94,8 +90,6 @@ rule process_kraken:
         krout="assembly_qc/kraken2/{isolate_id}.kraken",
     output:
         json="assembly_qc/kraken2/{isolate_id}.kraken.json",
-    params:
-        taxdump=os.path.expanduser(f"~/.nrw-geuebt/geuebt-validate-{version}/taxdump/"),
     message:
         "[Assembly quality][{wildcards.isolate_id}] Calculating taxonomic ditribution of assembly"
     conda:

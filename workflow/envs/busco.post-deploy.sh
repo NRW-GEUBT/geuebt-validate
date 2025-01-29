@@ -8,7 +8,7 @@ url="https://busco-data.ezlab.org/v5/data/lineages/bacteria_odb10.2024-01-08.tar
 VERSION=$(cat "../../VERSION")
 
 # Local directory to save the file
-local_dir="${HOME}/.nrw-geuebt/geuebt-validate-${VERSION}/busco/"
+local_dir="${CONDA_PREFIX}/busco/"
 
 # Name of the downloaded file
 file_name="bacteria_odb10"

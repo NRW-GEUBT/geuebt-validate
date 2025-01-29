@@ -18,6 +18,9 @@ metadata: /path/to/metadata
 # Path to the directory containing fasta files
 fasta_dir: /path/to/dir
 
+# Dependencies basedir
+deps_base: ~/.nrw-geuebt
+
 # Max number of threads assigned to single jobs
 max_threads_per_job: 1
 
@@ -29,3 +32,5 @@ ephemeral: False
 
 # Minimum contig length for calculating assembly metrics
 min_contig_length: 500
+
+

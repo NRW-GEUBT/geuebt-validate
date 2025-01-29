@@ -10,7 +10,7 @@ url="https://genome-idx.s3.amazonaws.com/kraken/k2_standard_08gb_20230314.tar.gz
 VERSION=$(cat "../../VERSION")
 
 # Local directory to save the file
-local_dir="${HOME}/.nrw-geuebt/geuebt-validate-${VERSION}/kraken/"
+local_dir="${CONDA_PREFIX}/kraken/"
 
 # Name of the downloaded file
 file_name="kraken2_standard8"
