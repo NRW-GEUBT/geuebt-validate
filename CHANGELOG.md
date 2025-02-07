@@ -1,3 +1,7 @@
+### 1.2.2
+
+Fix isolate_id field in sequence db
+
 ### 1.2.0
 
 Deployement of dependencies in the conda env path

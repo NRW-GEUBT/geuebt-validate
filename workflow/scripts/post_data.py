@@ -66,7 +66,7 @@ def main(
             with open(fasta_path, "r") as fasta:
                 fdump = fasta.read()
             fasta_json = {
-                "isolate_id": isolate_file,
+                "isolate_id": isolate_id,
                 "sequence_type": "fasta",
                 "sequence": fdump
             }
