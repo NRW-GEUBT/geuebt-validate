@@ -1,3 +1,7 @@
+### 1.3.0
+
+Report version to API
+
 ### 1.2.2
 
 Fix isolate_id field in sequence db

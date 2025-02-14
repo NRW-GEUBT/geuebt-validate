@@ -13,6 +13,21 @@ except NameError:
 
 
 import json
+from dateutil.parser import parse
+from datetime import datetime
+
+
+fmt_strs = ['%d.%m.%Y', '%Y-%m-%d']
+
+
+def parse_dates(dt_str, fmt_strs=fmt_strs):
+    for fmt in fmt_strs:
+        try:
+            return datetime.strptime(dt_str, fmt).strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+    # If not parsable, let the API reject it
+    return dt_str
 
 
 def main(mlst, metadata, assembly_qc, isolate_id, json_path):
@@ -102,6 +117,11 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
 
     # NB: fastas are renamed to match isolated_id
     dictout["fasta_name"] = f"{isolate_id}.fa"
+
+    # Format dates
+    for field in ["collection_date", "isolation_date"]:
+        if dictout["epidata"][field]:
+            dictout["epidata"][field] = parse_dates(dictout["epidata"][field], fmt_strs)
 
     # export to json
     with open(json_path, 'w') as fp:

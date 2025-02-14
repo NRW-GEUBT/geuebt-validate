@@ -28,6 +28,7 @@ def main(
         fastas_dir,
         fasta_store,
         uri,
+        ver,
         ):
     
     # Create dirs
@@ -49,6 +50,7 @@ def main(
         # parse json
         with open(isolate_file, "r") as fi:
             data = json.load(fi)
+        data["sample_info"]["geuebt_vali_ver"] = ver
         isolate_id = data["isolate_id"]
         
         # POST to server and get code
@@ -119,4 +121,5 @@ if __name__ == '__main__':
         snakemake.output["fastas"],
         snakemake.params["fasta_store"],
         snakemake.params["uri"],
+        snakemake.params["ver"],
     )
