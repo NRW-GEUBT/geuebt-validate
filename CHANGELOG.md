@@ -1,3 +1,7 @@
+### 1.3.2
+
+Fix parsing of metadata code fields, now ensures everything is strings
+ 
 ### 1.3.1
 
 Fix value parsing for q30, ref_coverage and seq_depth to allow None in case the samples are from third party

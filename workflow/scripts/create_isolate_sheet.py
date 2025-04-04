@@ -118,7 +118,10 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
     # NB: fastas are renamed to match isolated_id
     dictout["fasta_name"] = f"{isolate_id}.fa"
 
-    # Format dates
+    # Make sure all metadata except QC is parsed as string - important for (badly formatted) dates and the AVV/ADV codes!
+    for k, v in dictout["epidata"].items():
+        dictout["epidata"][k] = str(v) if v else None
+    # And now format dates
     for field in ["collection_date", "isolation_date"]:
         if dictout["epidata"][field]:
             dictout["epidata"][field] = parse_dates(dictout["epidata"][field], fmt_strs)
