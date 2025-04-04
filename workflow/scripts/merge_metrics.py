@@ -23,9 +23,10 @@ def main(quast, kraken, metadata, jsonpath, busco, isolate_id):
         meta = json.load(f)
     res["isolate_id"] = str(meta[isolate_id]["isolate_id"])
     res["expect_species"] = str(meta[isolate_id]["organism"])
-    res["seq_depth"] = float(meta[isolate_id]["seq_depth"])
-    res["ref_coverage"] = float(meta[isolate_id]["ref_coverage"])
-    res["q30"] = float(meta[isolate_id]["q30"])
+    # The next three values can be None in case of third party samples!
+    res["seq_depth"] = float(meta[isolate_id]["seq_depth"]) if meta[isolate_id]["seq_depth"] else None
+    res["ref_coverage"] = float(meta[isolate_id]["ref_coverage"]) if meta[isolate_id]["ref_coverage"] else None
+    res["q30"] = float(meta[isolate_id]["q30"]) if meta[isolate_id]["q30"] else None
     # QUAST - as TSV
     quast = pd.read_csv(quast, index_col=False, sep="\t")
     res["N50"] = int(quast["N50"].values[0])

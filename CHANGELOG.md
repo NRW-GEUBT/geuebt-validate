@@ -1,3 +1,7 @@
+### 1.3.1
+
+Fix value parsing for q30, ref_coverage and seq_depth to allow None in case the samples are from third party
+
 ### 1.3.0
 
 Report version to API
