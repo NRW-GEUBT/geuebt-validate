@@ -19,6 +19,26 @@ import requests
 from urllib.parse import urljoin
 
 
+USERNAME = os.getenv("GEUEBT_API_USERNAME")
+PASSWORD = os.getenv("GEUEBT_API_PASSWORD")
+
+
+def login(url, username, password):
+    response = requests.post(
+        f"{url}/users/token",
+        data={"username": username, "password": password},
+        headers={"Content-Type": "application/x-www-form-urlencoded"}
+    )
+    response.raise_for_status()
+    return response.json()["access_token"]
+
+
+def authenticated_request( method, endpoint, token, **kwargs):
+    headers = kwargs.pop("headers", {})
+    headers["Authorization"] = f"Bearer {token}"
+    return requests.request(method, endpoint, headers=headers, **kwargs)
+
+
 def main(
         isolate_sheets,
         checksum_qc,
@@ -54,7 +74,10 @@ def main(
         isolate_id = data["isolate_id"]
         
         # POST to server and get code
-        response = requests.post(urljoin(uri, "isolates"), json=data)
+        if not USERNAME or not PASSWORD:
+            raise RuntimeError("Missing API_USERNAME or API_PASSWORD env vars")
+        token = login(USERNAME, PASSWORD)
+        response = authenticated_request("POST", urljoin(uri, "isolates"), token, json=data)
 
         # On success
         if response.status_code == 200:
@@ -72,7 +95,7 @@ def main(
                 "sequence_type": "fasta",
                 "sequence": fdump
             }
-            fasta_response = requests.post(urljoin(uri, "sequences"), json=fasta_json)
+            fasta_response = authenticated_request("POST", urljoin(uri, "sequences"), token, json=fasta_json)
             if fasta_response.status_code == 200:
                 qc[isolate_id]["MESSAGES"].append(fasta_response.json()["message"])
             else:  # should never happen

@@ -1,3 +1,7 @@
+### 1.3.3
+
+Add API Authentication
+
 ### 1.3.2
 
 Fix parsing of metadata code fields, now ensures everything is strings
