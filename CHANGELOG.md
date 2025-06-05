@@ -1,3 +1,7 @@
+### 1.3.4
+
+Fix authenticaiton
+
 ### 1.3.3
 
 Add API Authentication

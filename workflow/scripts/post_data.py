@@ -76,7 +76,7 @@ def main(
         # POST to server and get code
         if not USERNAME or not PASSWORD:
             raise RuntimeError("Missing API_USERNAME or API_PASSWORD env vars")
-        token = login(USERNAME, PASSWORD)
+        token = login(uri, USERNAME, PASSWORD)
         response = authenticated_request("POST", urljoin(uri, "isolates"), token, json=data)
 
         # On success
