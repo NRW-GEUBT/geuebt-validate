@@ -1,3 +1,7 @@
+### 1.4.0
+
+Add Fastq MD5 to data model
+
 ### 1.3.4
 
 Fix authenticaiton

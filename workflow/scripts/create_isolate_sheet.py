@@ -48,6 +48,8 @@ def main(mlst, metadata, assembly_qc, isolate_id, json_path):
         "sample_type",
         "fasta_name",
         "fasta_md5",
+        "fastq_R1_md5",
+        "fastq_R2_md5"
     ]}
 
     dictout["mlst"] ={
