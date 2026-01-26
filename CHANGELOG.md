@@ -1,3 +1,7 @@
+## 1.5.1
+
+fix BUSCO odb10 DB
+
 ### 1.5.0
 
 Update Kraken2 and BUSCO databases to the latest versions
