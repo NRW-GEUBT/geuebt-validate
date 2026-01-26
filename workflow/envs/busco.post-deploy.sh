@@ -3,7 +3,7 @@ set -Eeu
 
 # URL of the .tar archive
 # If changing this path need to change the db name in `rules/common.smk` !
-url="https://busco-data.ezlab.org/v5/data/lineages/bacteria_odb12.2025-05-14.tar.gz"
+url="https://busco-data.ezlab.org/v5/data/lineages/bacteria_odb10.2024-01-08.tar.gz "
 
 # Local directory to save the file
 local_dir="${CONDA_PREFIX}/busco/"
