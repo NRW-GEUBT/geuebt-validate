@@ -1,3 +1,7 @@
+### 1.5.0
+
+Update Kraken2 and BUSCO databases to the latest versions
+
 ### 1.4.0
 
 Add Fastq MD5 to data model
