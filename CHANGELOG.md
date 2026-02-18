@@ -1,3 +1,7 @@
+## 1.5.2
+
+fix BUSCO url
+
 ## 1.5.1
 
 fix BUSCO odb10 DB
