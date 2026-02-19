@@ -1,3 +1,7 @@
+## 1.5.3
+
+fix API error parsing in post data
+
 ## 1.5.2
 
 fix BUSCO url

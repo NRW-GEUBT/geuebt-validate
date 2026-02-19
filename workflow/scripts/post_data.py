@@ -111,21 +111,28 @@ def main(
             shutil.copy(fasta_path, fastas_dir)
 
         # On errors
-        elif response.status_code == 422: 
-            err_type = response.json()["detail"][0]["type"]
-            err_msg = response.json()["detail"][0]["msg"]
-            err_field = "/".join(response.json()["detail"][0]["loc"])
-            nice_error = f"VALIDATION ERROR '{err_type}': {err_msg}; for field: '{err_field}'"
-            qc[isolate_id]["STATUS"] = "FAIL"
-            qc[isolate_id]["MESSAGES"].append(nice_error)
-
+        elif response.status_code == 422:
+            try:
+                err_type = response.json()["detail"][0]["type"]
+                err_msg = response.json()["detail"][0]["msg"]
+                err_field = "/".join(response.json()["detail"][0]["loc"])
+                nice_error = f"VALIDATION ERROR '{err_type}': {err_msg}; for field: '{err_field}'"
+                qc[isolate_id]["STATUS"] = "FAIL"
+                qc[isolate_id]["MESSAGES"].append(nice_error)
+            except:
+                qc[isolate_id]["STATUS"] = "FAIL"
+                qc[isolate_id]["MESSAGES"].append(
+                    f"An unexpected error has occured, contact a geuebt admin."
+                    f"Status: {response.status_code}."
+                    f"Body: {response.text}"
+                )
         else:
             qc[isolate_id]["STATUS"] = "FAIL"
             qc[isolate_id]["MESSAGES"].append(
                 f"An unexpected error has occured, contact a geuebt admin."
                 f"Status: {response.status_code}."
                 f"Body: {response.text}"
-                )
+            )
     
     # Write merged outputs
     with open(qc_out, "w") as fo:
